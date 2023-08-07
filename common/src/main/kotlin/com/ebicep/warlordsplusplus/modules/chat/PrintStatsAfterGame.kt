@@ -8,13 +8,14 @@ import com.ebicep.warlordsplusplus.event.WarlordsPlayerEventsImpl
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.ebicep.warlordsplusplus.game.WarlordsPlayer
+import com.ebicep.warlordsplusplus.modules.Module
 import com.ebicep.warlordsplusplus.util.Team
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 
-object PrintStatsAfterGame {
+object PrintStatsAfterGame : Module {
 
     private val printAbilityStatsAfterGame: Boolean
         get() = true//ConfigChatGui.printAbilityStatsAfterGame.get()
@@ -24,7 +25,7 @@ object PrintStatsAfterGame {
         get() = true//ConfigChatGui.printScoreboardStatsAfterGame.get()
 
     val WHITE_SPACER = Component.literal(" - ").withStyle { it.withColor(ChatFormatting.WHITE) }
-    val abilityStats: MutableMap<String, AbilityStat> = mutableMapOf<String, AbilityStat>()
+    val abilityStats: MutableMap<String, AbilityStat> = mutableMapOf()
     var divider = ""
 
     init {

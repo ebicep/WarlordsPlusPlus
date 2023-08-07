@@ -6,7 +6,7 @@ import com.ebicep.warlordsplusplus.game.GameModes
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 
-object RespawnTimerDetector {
+object RespawnTimerDetector : Detector {
 
     var respawnTimer = 0
 

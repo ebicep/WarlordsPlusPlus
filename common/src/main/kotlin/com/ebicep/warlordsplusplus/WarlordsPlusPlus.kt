@@ -1,11 +1,8 @@
 package com.ebicep.warlordsplusplus
 
 import com.ebicep.warlordsplusplus.ExpectPlatform.getConfigDirectory
-import com.ebicep.warlordsplusplus.channel.WarlordsPvEPacketHandler
-import com.ebicep.warlordsplusplus.detectors.DetectorEventHandler
-import dev.architectury.event.CompoundEventResult
-import dev.architectury.event.events.client.ClientSystemMessageEvent
-import net.minecraft.network.chat.Component
+import com.ebicep.warlordsplusplus.detectors.DetectorManager
+import com.ebicep.warlordsplusplus.modules.ModuleManager
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
@@ -17,13 +14,8 @@ object WarlordsPlusPlus {
 
     fun init() {
         LOGGER.info("CONFIG DIR: ${getConfigDirectory().toAbsolutePath().normalize()}")
-        WarlordsPvEPacketHandler
-        DetectorEventHandler
-
-        ClientSystemMessageEvent.RECEIVED.register { component: Component ->
-            LOGGER.info("TEST")
-            CompoundEventResult.pass()
-        }
+        DetectorManager
+        ModuleManager
     }
 
     fun isEnabled(): Boolean {

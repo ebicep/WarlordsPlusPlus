@@ -7,7 +7,7 @@ import dev.architectury.event.CompoundEventResult
 import dev.architectury.event.events.client.ClientSystemMessageEvent
 import net.minecraft.network.chat.Component
 
-object HitDetector {
+object HitDetector : Detector {
 
     init {
         ClientSystemMessageEvent.RECEIVED.register { component: Component ->

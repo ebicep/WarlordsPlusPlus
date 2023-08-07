@@ -1,8 +1,7 @@
-package com.ebicep.warlordsplusplus.channel
+package com.ebicep.warlordsplusplus.modules.render
 
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
-import dev.architectury.networking.NetworkChannel
 import dev.architectury.networking.NetworkManager
 import net.minecraft.network.FriendlyByteBuf
 import java.util.function.Supplier

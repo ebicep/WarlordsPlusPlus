@@ -1,8 +1,9 @@
-package com.ebicep.warlordsplusplus.channel
+package com.ebicep.warlordsplusplus.modules.render
 
 import com.ebicep.warlordsplusplus.event.PlayerRenderEvent
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
+import com.ebicep.warlordsplusplus.modules.Module
 import com.ebicep.warlordsplusplus.renderapi.api.RenderApiPlayer
 import com.ebicep.warlordsplusplus.util.Colors
 import com.ebicep.warlordsplusplus.util.ImageRegistry
@@ -12,7 +13,7 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 
-object CooldownRenderer {
+object CooldownRenderer : Module {
 
 
     init {

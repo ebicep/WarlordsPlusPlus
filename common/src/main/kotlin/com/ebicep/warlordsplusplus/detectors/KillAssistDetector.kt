@@ -8,7 +8,7 @@ import dev.architectury.event.events.client.ClientSystemMessageEvent
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 
-object KillAssistParser {
+object KillAssistParser : Detector {
 
     init {
         ClientSystemMessageEvent.RECEIVED.register { component: Component ->

@@ -15,7 +15,7 @@ const val YOU_DID = """»"""
 
 private val numberPattern = Pattern.compile("\\s[0-9]+\\s")
 
-object DamageAndHealParser {
+object DamageAndHealParser : Detector {
 
     init {
         ClientSystemMessageEvent.RECEIVED.register { component: Component ->

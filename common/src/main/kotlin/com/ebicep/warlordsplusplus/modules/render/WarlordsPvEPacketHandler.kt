@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.channel
+package com.ebicep.warlordsplusplus.modules.render
 
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import dev.architectury.networking.NetworkChannel
@@ -15,7 +15,7 @@ object WarlordsPvEPacketHandler {
         INSTANCE.register(
             CooldownPacket::class.java,
             CooldownPacket::encoder,
-            CooldownPacket::decoder,
+            CooldownPacket.Companion::decoder,
             CooldownPacket::messageConsumer
         )
         CooldownRenderer

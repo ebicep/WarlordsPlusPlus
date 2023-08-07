@@ -6,6 +6,7 @@ import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.ebicep.warlordsplusplus.game.WarlordsPlayer
+import com.ebicep.warlordsplusplus.modules.Module
 import com.ebicep.warlordsplusplus.renderapi.api.RenderApiGui
 import com.ebicep.warlordsplusplus.util.Colors
 import com.ebicep.warlordsplusplus.util.Team
@@ -17,7 +18,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.scores.Objective
 
-object WarlordsPlusPlusScoreBoard {
+object WarlordsPlusPlusScoreBoard : Module {
 
     private val showNewScoreboard: Boolean
         get() = true//ConfigScoreboardGui.enabled.get()

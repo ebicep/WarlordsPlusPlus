@@ -8,7 +8,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 
-object GameEndDetector {
+object GameEndDetector : Detector {
 
     var divider = ""
     var dividerComponent: MutableComponent = Component.empty()
