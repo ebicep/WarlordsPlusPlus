@@ -3,9 +3,8 @@ package com.ebicep.warlordsplusplus.detectors
 import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.event.WarlordsGameEventsImpl
 import dev.architectury.event.CompoundEventResult
-import dev.architectury.event.events.client.ClientChatEvent
+import dev.architectury.event.events.client.ClientSystemMessageEvent
 import net.minecraft.ChatFormatting
-import net.minecraft.network.chat.ChatType
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 
@@ -25,7 +24,7 @@ object GameEndDetector {
             canPost = false
             counter = 0
         }
-        ClientChatEvent.RECEIVED.register { bound: ChatType.Bound, component: Component ->
+        ClientSystemMessageEvent.RECEIVED.register { component: Component ->
             val unformattedText = component.string
 
             if (unformattedText.contains("YOUR STATISTICS")) {

@@ -4,10 +4,9 @@ import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.event.WarlordsGameEventsImpl
 import dev.architectury.event.CompoundEventResult
-import dev.architectury.event.events.client.ClientChatEvent
+import dev.architectury.event.events.client.ClientSystemMessageEvent
 import dev.architectury.event.events.client.ClientTickEvent
 import net.minecraft.client.Minecraft
-import net.minecraft.network.chat.ChatType
 import net.minecraft.network.chat.Component
 import org.apache.logging.log4j.Level
 
@@ -36,7 +35,7 @@ object GameStateManager {
         WarlordsGameEventsImpl.RESET_EVENT.register { e: WarlordsGameEvents.ResetEvent ->
 
         }
-        ClientChatEvent.RECEIVED.register { bound: ChatType.Bound, component: Component ->
+        ClientSystemMessageEvent.RECEIVED.register { component: Component ->
             val unformattedText = component.string
             if (
                 unformattedText == "The gates will fall in 1 second!" ||

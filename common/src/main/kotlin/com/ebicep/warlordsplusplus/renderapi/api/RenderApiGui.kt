@@ -12,4 +12,17 @@ abstract class RenderApiGui(poseStack: PoseStack, bufferSource: MultiBufferSourc
         }
     }
 
+    companion object {
+
+        val width: Int
+            get() = mc.window.guiScaledWidth
+        val height: Int
+            get() = mc.window.guiScaledHeight
+        val xCenter: Int
+            get() = width / 2
+        val yCenter: Int
+            get() = height / 2
+
+    }
+
 }

@@ -4,14 +4,13 @@ import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
 import com.ebicep.warlordsplusplus.event.WarlordsPlayerEventsImpl
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import dev.architectury.event.CompoundEventResult
-import dev.architectury.event.events.client.ClientChatEvent
-import net.minecraft.network.chat.ChatType
+import dev.architectury.event.events.client.ClientSystemMessageEvent
 import net.minecraft.network.chat.Component
 
 object HitDetector {
 
     init {
-        ClientChatEvent.RECEIVED.register { bound: ChatType.Bound, component: Component ->
+        ClientSystemMessageEvent.RECEIVED.register { component: Component ->
             if (GameStateManager.notInGame) {
                 return@register CompoundEventResult.pass()
             }

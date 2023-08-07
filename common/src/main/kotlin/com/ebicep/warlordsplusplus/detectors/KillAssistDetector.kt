@@ -4,15 +4,14 @@ import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
 import com.ebicep.warlordsplusplus.event.WarlordsPlayerEventsImpl
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import dev.architectury.event.CompoundEventResult
-import dev.architectury.event.events.client.ClientChatEvent
+import dev.architectury.event.events.client.ClientSystemMessageEvent
 import net.minecraft.client.Minecraft
-import net.minecraft.network.chat.ChatType
 import net.minecraft.network.chat.Component
 
 object KillAssistParser {
 
     init {
-        ClientChatEvent.RECEIVED.register { bound: ChatType.Bound, component: Component ->
+        ClientSystemMessageEvent.RECEIVED.register { component: Component ->
             if (GameStateManager.notInGame) {
                 return@register CompoundEventResult.pass()
             }

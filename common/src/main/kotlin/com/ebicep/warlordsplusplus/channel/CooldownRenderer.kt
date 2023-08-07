@@ -14,9 +14,9 @@ import net.minecraft.world.entity.player.Player
 
 object CooldownRenderer {
 
-    private var renderer: Renderer? = null
 
     init {
+        var renderer: Renderer? = null
         PlayerRenderEvent.PLAYER_RENDER_POST.register { poseStack, bufferSource, entity ->
             if (renderer == null) {
                 renderer = Renderer(poseStack, bufferSource, entity)
