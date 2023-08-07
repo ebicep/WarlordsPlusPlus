@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "WarlordsPlusPlus",
+  "description": "YO",
+  "authors": [
+    "ebicep"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "TEST"
+  },
+  "license": "",
+  "icon": "assets/warlordsplusplus/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "com.ebicep.warlordsplusplus.fabric.WarlordsPlusPlusFabric"
+      }
+    ]
+  },
+  "mixins": [
+    "warlordsplusplus.mixins.json",
+    "warlordsplusplus-common.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=${minecraft_version}",
+    "architectury": ">=${architectury_version}",
+    "fabric-language-kotlin": ">=${fabric_kotlin_version}"
+  }
+}
