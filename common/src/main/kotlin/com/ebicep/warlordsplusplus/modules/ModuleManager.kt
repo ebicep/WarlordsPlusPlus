@@ -1,7 +1,7 @@
 package com.ebicep.warlordsplusplus.modules
 
 import com.ebicep.warlordsplusplus.modules.chat.PrintStatsAfterGame
-import com.ebicep.warlordsplusplus.modules.render.CooldownRenderer
+import com.ebicep.warlordsplusplus.modules.render.WarlordsPvEPacketHandler
 import com.ebicep.warlordsplusplus.modules.scoreboard.WarlordsPlusPlusScoreBoard
 
 object ModuleManager {
@@ -12,7 +12,7 @@ object ModuleManager {
         with(modules) {
             add(PrintStatsAfterGame)
             add(WarlordsPlusPlusScoreBoard)
-            add(CooldownRenderer)
+            add(WarlordsPvEPacketHandler)
         }
     }
 

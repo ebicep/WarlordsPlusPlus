@@ -1,12 +1,13 @@
 package com.ebicep.warlordsplusplus.modules.render
 
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
+import com.ebicep.warlordsplusplus.modules.Module
 import dev.architectury.networking.NetworkChannel
 import net.minecraft.resources.ResourceLocation
 import org.apache.logging.log4j.Level
 
 
-object WarlordsPvEPacketHandler {
+object WarlordsPvEPacketHandler : Module {
 
     private val INSTANCE: NetworkChannel = NetworkChannel.create(ResourceLocation("warlords", "warlords"))
 

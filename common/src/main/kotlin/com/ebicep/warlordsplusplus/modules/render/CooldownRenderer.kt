@@ -26,7 +26,7 @@ object CooldownRenderer : Module {
                 renderer!!.bufferSource = bufferSource
                 renderer!!.entity = entity
             }
-            renderer!!.setupRender()
+            renderer!!.render()
             InteractionResult.PASS
         }
     }

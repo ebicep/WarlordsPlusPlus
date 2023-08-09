@@ -40,13 +40,12 @@ object WarlordsPlusPlusScoreBoard : Module {
         var renderer: Renderer? = null
         TabListRenderEvent.TAB_LIST_RENDER_PRE.register { guiGraphics, i, scoreboard, objective ->
             if (renderer == null) {
-                Renderer(guiGraphics.pose(), guiGraphics.bufferSource())
+                renderer = Renderer(guiGraphics.pose(), guiGraphics.bufferSource())
             } else {
-                renderer.poseStack = guiGraphics.pose()
-                renderer.bufferSource = guiGraphics.bufferSource()
+                renderer!!.poseStack = guiGraphics.pose()
+                renderer!!.bufferSource = guiGraphics.bufferSource()
             }
-            renderer!!.setupRender()
-            if (WarlordsPlusPlus.isEnabled()) {
+            if (WarlordsPlusPlus.isEnabled() && renderer!!.render()) {
                 InteractionResult.FAIL
             } else {
                 InteractionResult.PASS
