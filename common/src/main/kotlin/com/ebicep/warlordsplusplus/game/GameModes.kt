@@ -1,5 +1,6 @@
 package com.ebicep.warlordsplusplus.game
 
+import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.detectors.RespawnTimerDetector
 import com.ebicep.warlordsplusplus.util.ScoreboardUtils
 import net.minecraft.world.scores.PlayerTeam
@@ -18,8 +19,8 @@ enum class GameModes {
             return RespawnTimerDetector.respawnTimer + (if (RespawnTimerDetector.respawnTimer <= 4) 12 else 0)
         }
 
-        override fun getScale(): Double? {
-            return 1.0//ConfigScoreboardGui.scaleCTFTDM.get()
+        override fun getScale(): Double {
+            return Config.values.scoreboardScaleCTFTDM.value / 100.0
         }
     },
     TDM {
@@ -35,8 +36,8 @@ enum class GameModes {
             return 6
         }
 
-        override fun getScale(): Double? {
-            return 1.0//ConfigScoreboardGui.scaleCTFTDM.get()
+        override fun getScale(): Double {
+            return Config.values.scoreboardScaleCTFTDM.value / 100.0
         }
     },
     DOM {
@@ -52,8 +53,8 @@ enum class GameModes {
             return RespawnTimerDetector.respawnTimer + (if (RespawnTimerDetector.respawnTimer < 8) 8 else 0)
         }
 
-        override fun getScale(): Double? {
-            return 1.0//detectorsConfigScoreboardGui.scaleDOM.get()
+        override fun getScale(): Double {
+            return Config.values.scoreboardScaleDOM.value / 100.0
         }
     },
 
