@@ -20,7 +20,7 @@ import org.joml.Quaternionf
 
 abstract class RenderApi(
     var poseStack: PoseStack,
-    var bufferSource: MultiBufferSource.BufferSource
+    var bufferSource: MultiBufferSource.BufferSource //TODO change to MultiBufferSource?
 ) : Render {
     
     companion object {

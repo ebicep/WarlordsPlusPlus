@@ -18,11 +18,13 @@ public class MixinPlayerRender {
             at = @At("HEAD")
     )
     public void render(AbstractClientPlayer abstractClientPlayer, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
-        PlayerRenderEvent.PLAYER_RENDER_POST.invoker().onPlayerRender(
-                poseStack,
-                (MultiBufferSource.BufferSource) multiBufferSource,
-                abstractClientPlayer
-        );
+        if (multiBufferSource instanceof MultiBufferSource.BufferSource) {
+            PlayerRenderEvent.PLAYER_RENDER_POST.invoker().onPlayerRender(
+                    poseStack,
+                    (MultiBufferSource.BufferSource) multiBufferSource,
+                    abstractClientPlayer
+            );
+        }
     }
 
 
