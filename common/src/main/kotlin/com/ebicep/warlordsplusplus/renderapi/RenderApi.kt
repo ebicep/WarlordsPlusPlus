@@ -12,6 +12,7 @@ import net.minecraft.client.player.LocalPlayer
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.renderer.RenderType
 import net.minecraft.network.chat.Component
 import net.minecraft.world.phys.Vec3
 import org.apache.logging.log4j.Level
@@ -116,28 +117,32 @@ abstract class RenderApi(
      * Draws a rectangle
      */
     fun renderRect(width: Float, height: Float, color: Colors, alpha: Int = 255, z: Float = 0f) {
-        RenderSystem.enableDepthTest()
-        RenderSystem.setShader { GameRenderer.getPositionColorShader() }
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR)
+//        RenderSystem.enableDepthTest()
+//        RenderSystem.setShader { GameRenderer.getPositionColorShader() }
+//        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR)
         val pPose = poseStack.last().pose()
-        bufferBuilder
+        val vertexConsumer = bufferSource.getBuffer(RenderType.gui())
+        vertexConsumer
             .vertex(pPose, 0f, 0f, z)
             .color(color, alpha)
             .endVertex()
-        bufferBuilder
+        vertexConsumer
             .vertex(pPose, 0f, height, z)
             .color(color, alpha)
             .endVertex()
-        bufferBuilder
+        vertexConsumer
             .vertex(pPose, width, height, z)
             .color(color, alpha)
             .endVertex()
-        bufferBuilder
+        vertexConsumer
             .vertex(pPose, width, 0f, z)
             .color(color, alpha)
             .endVertex()
-        tesselator.end()
+//        tesselator.end()
+//        RenderSystem.disableDepthTest()
         RenderSystem.disableDepthTest()
+        bufferSource.endBatch()
+        RenderSystem.enableDepthTest()
     }
 
     fun renderRect(width: Int, height: Int, color: Colors, alpha: Int = 255, z: Float = 0f) {
@@ -149,29 +154,30 @@ abstract class RenderApi(
     }
 
     fun renderRectXCentered(width: Float, height: Float, color: Colors, alpha: Int = 255, z: Float = 0f) {
-        RenderSystem.enableDepthTest()
-        RenderSystem.setShader { GameRenderer.getPositionColorShader() }
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR)
+//        RenderSystem.enableDepthTest()
+//        RenderSystem.setShader { GameRenderer.getPositionColorShader() }
         val pPose = poseStack.last().pose()
         val w2 = width / 2
-        bufferBuilder
+        val vertexConsumer = bufferSource.getBuffer(RenderType.gui())
+        vertexConsumer
             .vertex(pPose, -w2, 0f, z)
             .color(color, alpha)
             .endVertex()
-        bufferBuilder
+        vertexConsumer
             .vertex(pPose, -w2, height, z)
             .color(color, alpha)
             .endVertex()
-        bufferBuilder
+        vertexConsumer
             .vertex(pPose, w2, height, z)
             .color(color, alpha)
             .endVertex()
-        bufferBuilder
+        vertexConsumer
             .vertex(pPose, w2, 0f, z)
             .color(color, alpha)
             .endVertex()
-        tesselator.end()
         RenderSystem.disableDepthTest()
+        bufferSource.endBatch()
+        RenderSystem.enableDepthTest()
     }
 
     fun VertexConsumer.color(color: Colors, alpha: Int = 255): VertexConsumer {

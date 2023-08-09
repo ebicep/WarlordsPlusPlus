@@ -8,25 +8,27 @@ import com.ebicep.warlordsplusplus.game.WarlordsPlayer
 import com.ebicep.warlordsplusplus.modules.Module
 import com.ebicep.warlordsplusplus.renderapi.api.RenderApiGui
 import com.ebicep.warlordsplusplus.util.Colors
+import com.ebicep.warlordsplusplus.util.Specialization
 import com.ebicep.warlordsplusplus.util.Team
-import com.mojang.blaze3d.vertex.PoseStack
+import com.ebicep.warlordsplusplus.util.WarlordClass
 import net.minecraft.ChatFormatting
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.multiplayer.ClientPacketListener
-import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.scores.Objective
+import java.util.*
 
 object WarlordsPlusPlusScoreBoard : Module {
 
     private val showNewScoreboard: Boolean
         get() = true//ConfigScoreboardGui.enabled.get()
     private val showTopHeader: Boolean
-        get() = true//ConfigScoreboardGui.showTopHeader.get()
+        get() = false//ConfigScoreboardGui.showTopHeader.get()
     private val showOutline: Boolean
         get() = true//ConfigScoreboardGui.showOutline.get()
     private val showDiedToYouStoleKill: Boolean
-        get() = true//ConfigScoreboardGui.showDiedToYouStoleKill.get()
+        get() = false//ConfigScoreboardGui.showDiedToYouStoleKill.get()
     private val showDoneAndReceived: Boolean
         get() = true//ConfigScoreboardGui.showDoneAndReceived.get()
     private val splitScoreBoard: Boolean
@@ -39,7 +41,7 @@ object WarlordsPlusPlusScoreBoard : Module {
         var renderer: Renderer? = null
         TabListRenderEvent.TAB_LIST_RENDER_PRE.register { guiGraphics, i, scoreboard, objective ->
             if (renderer == null) {
-                renderer = Renderer(guiGraphics.pose(), guiGraphics.bufferSource())
+                renderer = Renderer(guiGraphics)
             } else {
                 renderer!!.poseStack = guiGraphics.pose()
                 renderer!!.bufferSource = guiGraphics.bufferSource()
@@ -52,11 +54,7 @@ object WarlordsPlusPlusScoreBoard : Module {
         }
     }
 
-    class Renderer(
-        poseStack: PoseStack,
-        bufferSource: MultiBufferSource.BufferSource,
-    ) : RenderApiGui(poseStack, bufferSource) {
-        //forgeguirender
+    class Renderer(private val guiGraphics: GuiGraphics) : RenderApiGui(guiGraphics.pose(), guiGraphics.bufferSource()) {
         override fun shouldRender(): Boolean {
             val scoreObjective: Objective? = mc.level!!.scoreboard.getDisplayObjective(0)
             val handler: ClientPacketListener = mc.player!!.connection
@@ -68,61 +66,61 @@ object WarlordsPlusPlusScoreBoard : Module {
         override fun render0() {
             val thePlayer = player ?: return
 
-            val players = OtherWarlordsPlayers.getOtherWarlordsPlayers(thePlayer.connection.onlinePlayers)
-//        val players = listOf(
-//            OtherWarlordsPlayer("Heatran", UUID.randomUUID()).apply {
-//                kills = 1
-//                deaths = 2
-//                damageDone = 300
-//                damageReceived = 40
-//                healingDone = 0
-//                healingReceived = 0
-//                warlordClass = WarlordClass.MAGE
-//                spec = Specialization.CRYOMANCER
-//                team = Team.BLUE
-//                level = 7
-//                left = false
-//            },
-//            OtherWarlordsPlayer("John_Br", UUID.randomUUID()).apply {
-//                kills = 10
-//                deaths = 0
-//                damageDone = 0
-//                damageReceived = 0
-//                healingDone = 100
-//                healingReceived = 1000
-//                warlordClass = WarlordClass.WARRIOR
-//                spec = Specialization.REVENANT
-//                team = Team.RED
-//                level = 90
-//                left = false
-//            },
-//            OtherWarlordsPlayer("_RealDeal_", UUID.randomUUID()).apply {
-//                kills = 0
-//                deaths = 204
-//                damageDone = 0
-//                damageReceived = 0
-//                healingDone = 3234
-//                healingReceived = 0
-//                warlordClass = WarlordClass.PALADIN
-//                spec = Specialization.AVENGER
-//                team = Team.RED
-//                level = 56
-//                left = false
-//            },
-//            OtherWarlordsPlayer("JohnSmith", UUID.randomUUID()).apply {
-//                kills = 100
-//                deaths = 25
-//                damageDone = 30
-//                damageReceived = 406
-//                healingDone = 0
-//                healingReceived = 0
-//                warlordClass = WarlordClass.MAGE
-//                spec = Specialization.PYROMANCER
-//                team = Team.BLUE
-//                level = 70
-//                left = false
-//            },
-//        )
+            var players = OtherWarlordsPlayers.getOtherWarlordsPlayers(thePlayer.connection.onlinePlayers)
+            players = listOf(
+                OtherWarlordsPlayer("Heatran", UUID.randomUUID()).apply {
+                    kills = 1
+                    deaths = 2
+                    damageDone = 300
+                    damageReceived = 40
+                    healingDone = 0
+                    healingReceived = 0
+                    warlordClass = WarlordClass.MAGE
+                    spec = Specialization.CRYOMANCER
+                    team = Team.BLUE
+                    level = 7
+                    left = false
+                },
+                OtherWarlordsPlayer("John_Br", UUID.randomUUID()).apply {
+                    kills = 10
+                    deaths = 0
+                    damageDone = 0
+                    damageReceived = 0
+                    healingDone = 100
+                    healingReceived = 1000
+                    warlordClass = WarlordClass.WARRIOR
+                    spec = Specialization.REVENANT
+                    team = Team.RED
+                    level = 90
+                    left = false
+                },
+                OtherWarlordsPlayer("_RealDeal_", UUID.randomUUID()).apply {
+                    kills = 0
+                    deaths = 204
+                    damageDone = 0
+                    damageReceived = 0
+                    healingDone = 3234
+                    healingReceived = 0
+                    warlordClass = WarlordClass.PALADIN
+                    spec = Specialization.AVENGER
+                    team = Team.RED
+                    level = 56
+                    left = false
+                },
+                OtherWarlordsPlayer("JohnSmith", UUID.randomUUID()).apply {
+                    kills = 100
+                    deaths = 25
+                    damageDone = 30
+                    damageReceived = 406
+                    healingDone = 0
+                    healingReceived = 0
+                    warlordClass = WarlordClass.MAGE
+                    spec = Specialization.PYROMANCER
+                    team = Team.BLUE
+                    level = 70
+                    left = false
+                },
+            )
 
             val teamBlue = players.filter { it.team == Team.BLUE }.sortedByDescending { it.level }
             val teamRed = players.filter { it.team == Team.RED }.sortedByDescending { it.level }
@@ -147,23 +145,24 @@ object WarlordsPlusPlusScoreBoard : Module {
                 width -= 105
             }
             //xStart += moveScoreboard
-            if (splitScoreBoard) {
-                width = width * 2 + spaceBetweenSplit
-            }
+            //scaling width to fit the screen, width is 100 when guiScaledWidth screen is 640, make it proportional
+            val guiScale = scaledWidth / 1100.0
+            width = (width * guiScale).toInt()
+            val unscaledWidth = width / guiScale
+            //scale(guiScale)
 
-            var xStart = xCenter - (width / 2)
+            var xStart = xCenter - width - spaceBetweenSplit / 2
             val yStart = 25
 
-            GameStateManager.currentGameMode.getScale()?.let {
-                poseStack!!.scale(it.toFloat(), it.toFloat(), 1f)
-                val scaleStart = (it * 100).toInt()
-                xStart = (xCenter + 50 - scaleStart / 2 - ((width * scaleStart / 100 / 2)))
+            GameStateManager.currentGameMode.getScale()?.let { scale ->
+                poseStack.scale(scale.toFloat(), scale.toFloat(), 1f)
+                xStart = (xStart / scale).toInt()
             }
 
             var xLevel = 2.0
             var xName = 53.0
             var xKills = 100.0
-            var xDeaths = 30.0
+            var xDeaths = 35.0
             var xDone = 40.0
             var xReceived = 50.0
             var xKilled = 60.0
@@ -208,15 +207,21 @@ object WarlordsPlusPlusScoreBoard : Module {
 
             if (showTopHeader) {
                 translate(xStart, yStart)
-                renderRect(width, 13, Colors.DEF)
                 poseStack {
+                    scale(guiScale)
+                    renderRect(unscaledWidth, 13.0, Colors.DEF)
+                    translateZ(-2)
                     renderHeader()
                 }
                 if (splitScoreBoard) {
                     poseStack {
-                        translateX(width + spaceBetweenSplit)
-                        renderRect(width, 13, Colors.DEF)
-                        renderHeader()
+                        poseStack {
+                            scale(guiScale)
+                            translateX(unscaledWidth + spaceBetweenSplit)
+                            renderRect(unscaledWidth, 13.0, Colors.DEF)
+                            translateZ(-2)
+                            renderHeader()
+                        }
                     }
                 }
             } else {
@@ -232,25 +237,25 @@ object WarlordsPlusPlusScoreBoard : Module {
 
                 if (showOutline) {
                     translateY(-2) {
-                        renderRect(width.toDouble(), 1.25, Colors.DEF)
+                        renderRect(unscaledWidth, 1.25, Colors.DEF)
                         renderRect(1.25, 11.0, Colors.DEF)
                     }
-                    translate(width - 1.25, -2.0) {
+                    translate(unscaledWidth - 1.25, -2.0) {
                         renderRect(1.25, 11.0, Colors.DEF)
                     }
                     translateY(8.75) {
-                        renderRect(width.toDouble(), 1.25, Colors.DEF)
+                        renderRect(unscaledWidth, 1.25, Colors.DEF)
                     }
                 } else {
                     if (index % 2 == 1) {
                         translateY(-1.2) {
-                            renderRect(width.toDouble(), 10.75, Colors.DEF, alpha = 40)
+                            renderRect(unscaledWidth, 10.75, Colors.DEF, alpha = 40)
                         }
                     }
                 }
 
                 poseStack {
-                    translate(xLevel, .5)
+                    translate(xLevel, .5, -2.0)
                     Component.empty()
                         .append(Component.literal(p.warlordClass.shortName)
                             .withStyle { it.withColor(p.levelColor) }
@@ -319,28 +324,36 @@ object WarlordsPlusPlusScoreBoard : Module {
                 translateY(-10.75)
             }
 
+            scale(guiScale)
             if (splitScoreBoard) {
                 translateY(-14)
                 poseStack {
-                    renderRect(width.toDouble(), 10.75 * teamBlue.size + 1, Colors.DEF, 100)
+                    renderRect(unscaledWidth, 10.75 * teamBlue.size + 1, Colors.DEF, 100)
                     translateY(-2)
+                    translateZ(-20)
+//                    translateY(-20) {
+//                        guiGraphics.fill(10, 40, 20, 60, Colors.DEF.convertToArgb(100))
+//                    }
                     teamBlue.forEachIndexed(::renderLine)
                 }
-                translateX(width + 5)
+                translateX(unscaledWidth + spaceBetweenSplit)
                 poseStack {
-                    renderRect(width.toDouble(), 10.75 * teamRed.size + 1, Colors.DEF, 100)
+                    renderRect(unscaledWidth, 10.75 * teamRed.size + 1, Colors.DEF, 100)
                     translateY(-2)
+                    translateZ(-20)
                     teamRed.forEachIndexed(::renderLine)
                 }
             } else {
                 translateY(-14)
-                renderRect(width.toDouble(), 10.75 * teamBlue.size + 1, Colors.DEF, 100)
+                renderRect(unscaledWidth, 10.75 * teamBlue.size + 1, Colors.DEF, 100)
                 translateY(-2)
+                translateZ(-20)
                 teamBlue.forEachIndexed(::renderLine)
 
                 translateY(-1)
-                renderRect(width.toDouble(), 10.75 * teamRed.size + 1, Colors.DEF, 100)
+                renderRect(unscaledWidth, 10.75 * teamRed.size + 1, Colors.DEF, 100)
                 translateY(-2)
+                translateZ(-20)
                 teamRed.forEachIndexed(::renderLine)
             }
         }
