@@ -1,6 +1,5 @@
 package com.ebicep.warlordsplusplus.modules.scoreboard
 
-import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.event.TabListRenderEvent
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
@@ -45,7 +44,7 @@ object WarlordsPlusPlusScoreBoard : Module {
                 renderer!!.poseStack = guiGraphics.pose()
                 renderer!!.bufferSource = guiGraphics.bufferSource()
             }
-            if (WarlordsPlusPlus.isEnabled() && renderer!!.render()) {
+            if (renderer!!.render()) {
                 InteractionResult.FAIL
             } else {
                 InteractionResult.PASS

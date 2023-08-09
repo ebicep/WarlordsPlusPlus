@@ -1,16 +1,18 @@
 package com.ebicep.warlordsplusplus.renderapi
 
+import com.ebicep.warlordsplusplus.WarlordsPlusPlus
+
 interface Render {
 
     fun render(): Boolean {
-//        if (!WarlordsPlusPlus.isEnabled()) {
-//            return
-//        }
-        if (shouldRender()) {
-            setupRender()
-            return true
+        if (!WarlordsPlusPlus.isEnabled()) {
+            return false
         }
-        return false
+        if (!shouldRender()) {
+            return false
+        }
+        setupRender()
+        return true
     }
 
     fun setupRender()
