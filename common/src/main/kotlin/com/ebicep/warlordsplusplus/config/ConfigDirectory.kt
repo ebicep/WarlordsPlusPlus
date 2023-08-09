@@ -1,9 +1,9 @@
-package com.ebicep.warlordsplusplus
+package com.ebicep.warlordsplusplus.config
 
 import dev.architectury.injectables.annotations.ExpectPlatform
 import java.nio.file.Path
 
-object ExpectPlatform {
+object ConfigDirectory {
 
     @JvmStatic
     @ExpectPlatform

@@ -5,7 +5,6 @@
 
 package com.ebicep.warlordsplusplus.config
 
-import com.ebicep.warlordsplusplus.ExpectPlatform
 import com.ebicep.warlordsplusplus.MOD_ID
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.config.mutable.MutableBoolean
@@ -28,7 +27,7 @@ object Config {
     var values = ConfigVariables()
 
     fun save() {
-        val configDirectory = File(ExpectPlatform.getConfigDirectory().toString(), "config")
+        val configDirectory = File(ConfigDirectory.getConfigDirectory().toString())
         if (!configDirectory.exists()) {
             configDirectory.mkdir()
         }
@@ -37,8 +36,8 @@ object Config {
     }
 
     fun load() {
-        WarlordsPlusPlus.LOGGER.info("Config Directory: ${ExpectPlatform.getConfigDirectory().toAbsolutePath().normalize()}")
-        val configDirectory = File(ExpectPlatform.getConfigDirectory().toString(), "config")
+        WarlordsPlusPlus.LOGGER.info("Config Directory: ${ConfigDirectory.getConfigDirectory().toAbsolutePath().normalize()}")
+        val configDirectory = File(ConfigDirectory.getConfigDirectory().toString())
         if (!configDirectory.exists()) {
             return
         }

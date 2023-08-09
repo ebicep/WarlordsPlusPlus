@@ -2,7 +2,7 @@ package com.ebicep.warlordsplusplus.forge
 
 import com.ebicep.warlordsplusplus.MOD_ID
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
-import com.ebicep.warlordsplusplus.forge.events.ClientCommandRegistration
+import com.ebicep.warlordsplusplus.events.forge.ClientCommandRegistration
 import dev.architectury.platform.forge.EventBuses
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod

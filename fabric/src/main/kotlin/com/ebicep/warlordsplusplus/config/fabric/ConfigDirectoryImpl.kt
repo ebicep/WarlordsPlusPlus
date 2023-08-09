@@ -1,14 +1,14 @@
-package com.ebicep.warlordsplusplus.forge
+package com.ebicep.warlordsplusplus.config.fabric
 
-import net.minecraftforge.fml.loading.FMLPaths
+import net.fabricmc.loader.api.FabricLoader
 import java.nio.file.Path
 
-object ExpectPlatformImpl {
+object ConfigDirectoryImpl {
     /**
      * This is our actual method to [ExampleExpectPlatform.getConfigDirectory].
      */
     @JvmStatic // Jvm Static is required so that java can access it
     fun getConfigDirectory(): Path {
-        return FMLPaths.CONFIGDIR.get()
+        return FabricLoader.getInstance().configDir
     }
 }

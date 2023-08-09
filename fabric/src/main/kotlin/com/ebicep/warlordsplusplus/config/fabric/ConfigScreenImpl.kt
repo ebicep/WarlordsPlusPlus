@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.fabric.config
+package com.ebicep.warlordsplusplus.config.fabric
 
 import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.config.mutable.MutableBoolean
@@ -8,7 +8,7 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 
-object ConfigScreen {
+object ConfigScreenImpl {
 
     private fun ConfigEntryBuilder.booleanToggle(translatable: String, variable: MutableBoolean) =
         startBooleanToggle(Component.translatable(translatable), variable.value)

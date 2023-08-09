@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.fabric.events
+package com.ebicep.warlordsplusplus.events.fabric
 
 import com.ebicep.warlordsplusplus.config.ConfigScreen
 import com.mojang.brigadier.Command
