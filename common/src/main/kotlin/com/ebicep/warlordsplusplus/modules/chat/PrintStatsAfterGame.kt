@@ -1,5 +1,6 @@
 package com.ebicep.warlordsplusplus.modules.chat
 
+import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.detectors.GameEndDetector
 import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.event.WarlordsGameEventsImpl
@@ -18,11 +19,11 @@ import net.minecraft.network.chat.MutableComponent
 object PrintStatsAfterGame : Module {
 
     private val printAbilityStatsAfterGame: Boolean
-        get() = true//ConfigChatGui.printAbilityStatsAfterGame.get()
+        get() = Config.values.printAbilityStatsAfterGame
     private val printGeneralStatsAfterGame: Boolean
-        get() = true//ConfigChatGui.printGeneralStatsAfterGame.get()
+        get() = Config.values.printGeneralStatsAfterGame
     private val printScoreboardStatsAfterGame: Boolean
-        get() = true//ConfigChatGui.printScoreboardStatsAfterGame.get()
+        get() = Config.values.printScoreboardStatsAfterGame
 
     val WHITE_SPACER = Component.literal(" - ").withStyle { it.withColor(ChatFormatting.WHITE) }
     val abilityStats: MutableMap<String, AbilityStat> = mutableMapOf()

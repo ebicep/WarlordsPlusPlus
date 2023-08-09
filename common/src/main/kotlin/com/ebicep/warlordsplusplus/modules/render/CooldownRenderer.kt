@@ -1,5 +1,6 @@
 package com.ebicep.warlordsplusplus.modules.render
 
+import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.event.PlayerRenderEvent
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
@@ -39,7 +40,8 @@ object CooldownRenderer : Module {
     ) : RenderApiPlayer(poseStack, bufferSource, entity) {
 
         override fun shouldRender(): Boolean {
-            return GameStateManager.inWarlords2 &&
+            return Config.values.renderPlayerInfo &&
+                    GameStateManager.inWarlords2 &&
                     GameStateManager.inGame &&
                     entity != Minecraft.getInstance().player &&
                     (GameStateManager.inPvE || !OtherWarlordsPlayers.playersMap.containsKey(Minecraft.getInstance().player?.scoreboardName))

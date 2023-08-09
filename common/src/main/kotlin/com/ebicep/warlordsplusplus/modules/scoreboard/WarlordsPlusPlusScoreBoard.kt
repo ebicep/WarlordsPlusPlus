@@ -1,5 +1,6 @@
 package com.ebicep.warlordsplusplus.modules.scoreboard
 
+import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.event.TabListRenderEvent
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
@@ -22,17 +23,17 @@ import java.util.*
 object WarlordsPlusPlusScoreBoard : Module {
 
     private val showNewScoreboard: Boolean
-        get() = true//ConfigScoreboardGui.enabled.get()
+        get() = Config.values.scoreboardEnabled
     private val showTopHeader: Boolean
-        get() = false//ConfigScoreboardGui.showTopHeader.get()
+        get() = Config.values.scoreboardShowTopHeader
     private val showOutline: Boolean
-        get() = true//ConfigScoreboardGui.showOutline.get()
+        get() = Config.values.scoreboardShowOutline
     private val showDiedToYouStoleKill: Boolean
-        get() = false//ConfigScoreboardGui.showDiedToYouStoleKill.get()
+        get() = Config.values.scoreboardShowDiedToYouStoleKill
     private val showDoneAndReceived: Boolean
-        get() = true//ConfigScoreboardGui.showDoneAndReceived.get()
+        get() = Config.values.scoreboardShowDoneAndReceived
     private val splitScoreBoard: Boolean
-        get() = true//ConfigScoreboardGui.splitScoreBoard.get()
+        get() = Config.values.scoreboardSplitScoreBoard
 
     private val spaceBetweenSplit = 6
 

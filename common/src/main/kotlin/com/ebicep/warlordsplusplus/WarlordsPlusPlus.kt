@@ -1,6 +1,7 @@
 package com.ebicep.warlordsplusplus
 
 import com.ebicep.warlordsplusplus.ExpectPlatform.getConfigDirectory
+import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.detectors.DetectorManager
 import com.ebicep.warlordsplusplus.modules.ModuleManager
 import org.apache.logging.log4j.LogManager
@@ -19,6 +20,6 @@ object WarlordsPlusPlus {
     }
 
     fun isEnabled(): Boolean {
-        return true
+        return Config.values.enabled
     }
 }

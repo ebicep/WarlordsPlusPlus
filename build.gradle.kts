@@ -1,14 +1,19 @@
 import net.fabricmc.loom.api.LoomGradleExtensionAPI
 
 buildscript {
+    repositories { mavenCentral() }
+
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
+        val kotlinVersion = "1.8.22"
+        classpath(kotlin("gradle-plugin", version = kotlinVersion))
+        classpath(kotlin("serialization", version = kotlinVersion))
     }
 }
 
 plugins {
     java
     kotlin("jvm") version "1.8.22"
+    kotlin("plugin.serialization") version "1.8.22"
     id("architectury-plugin") version "3.4-SNAPSHOT"
     id("dev.architectury.loom") version "1.2-SNAPSHOT" apply false
     id("com.github.johnrengelman.shadow") version "8.1.1" apply false
@@ -34,6 +39,7 @@ subprojects {
 
 allprojects {
     apply(plugin = "kotlin")
+    apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
     apply(plugin = "java")
     apply(plugin = "architectury-plugin")
     apply(plugin = "maven-publish")
@@ -55,6 +61,7 @@ allprojects {
 
     dependencies {
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     }
 
     tasks.withType<JavaCompile> {
