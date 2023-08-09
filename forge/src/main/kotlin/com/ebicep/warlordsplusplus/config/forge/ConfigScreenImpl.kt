@@ -18,7 +18,7 @@ object ConfigScreenImpl {
             .build()
 
     private fun ConfigEntryBuilder.percentSlider(translatable: String, variable: MutableInt) =
-        startIntSlider(Component.translatable(translatable), 0, 100, variable.value)
+        startIntSlider(Component.translatable(translatable), variable.value, 0, 100)
             .setDefaultValue(variable.value)
             .setTooltip(Component.translatable("$translatable.tooltip"))
             .setSaveConsumer { variable.value = it }
