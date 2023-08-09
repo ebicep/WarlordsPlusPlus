@@ -131,7 +131,7 @@ object WarlordsPlusPlusScoreBoard : Module {
             val mostDeathsBlue = if (teamBlue.isEmpty()) 0 else teamBlue.map { it.deaths }.sorted().reversed()[0]
             val mostDeathsRed = if (teamRed.isEmpty()) 0 else teamRed.map { it.deaths }.sorted().reversed()[0]
 
-            var width = 443
+            var width = 460
 
 //        if (!showDoneAndReceived) {
 //            showDiedToYouStoleKill = false
@@ -147,7 +147,7 @@ object WarlordsPlusPlusScoreBoard : Module {
             }
             //xStart += moveScoreboard
             //scaling width to fit the screen, width is 100 when guiScaledWidth screen is 640, make it proportional
-            val guiScale = scaledWidth / 1100.0
+            val guiScale = scaledWidth / 1050.0
             width = (width * guiScale).toInt()
             val unscaledWidth = width / guiScale
             //scale(guiScale)
