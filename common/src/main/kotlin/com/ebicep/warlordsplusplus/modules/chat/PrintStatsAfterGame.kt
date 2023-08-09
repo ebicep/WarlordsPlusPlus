@@ -43,7 +43,7 @@ object PrintStatsAfterGame : Module {
             }
             if (printGeneralStatsAfterGame) {
                 printEmpty()
-                getGeneralStats()
+                printGeneralStats()
             }
             if (printScoreboardStatsAfterGame) {
                 printEmpty()
@@ -77,12 +77,12 @@ object PrintStatsAfterGame : Module {
 
     }
 
-    private fun getGeneralStats(): MutableComponent {
+    private fun printGeneralStats() {
         val players = OtherWarlordsPlayers.playersMap.values
         val playerKills = WarlordsPlayer.kills
         val teamKills = players.filter { it.team == WarlordsPlayer.team }.sumOf { it.kills }
         val killParticipation = if (playerKills == 0) 0 else (playerKills / teamKills) * 100
-        return Component.empty()
+        Minecraft.getInstance().player!!.sendSystemMessage(Component.empty()
             .withStyle { it.withColor(ChatFormatting.WHITE) }
             .append(Component.literal("Hits: ")
                 .withStyle { it.withColor(ChatFormatting.GRAY) }
@@ -133,6 +133,7 @@ object PrintStatsAfterGame : Module {
                 .withStyle { it.withColor(ChatFormatting.BLUE) }
             )
             .append(WarlordsPlayer.damageTakenCounter.toString())
+        )
     }
 
     private fun printScoreboardStats() {
