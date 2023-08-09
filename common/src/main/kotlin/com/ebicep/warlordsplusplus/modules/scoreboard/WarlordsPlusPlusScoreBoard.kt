@@ -23,17 +23,17 @@ import java.util.*
 object WarlordsPlusPlusScoreBoard : Module {
 
     private val showNewScoreboard: Boolean
-        get() = Config.values.scoreboardEnabled
+        get() = Config.values.scoreboardEnabled.value
     private val showTopHeader: Boolean
-        get() = Config.values.scoreboardShowTopHeader
+        get() = Config.values.scoreboardShowTopHeader.value
     private val showOutline: Boolean
-        get() = Config.values.scoreboardShowOutline
+        get() = Config.values.scoreboardShowOutline.value
     private val showDiedToYouStoleKill: Boolean
-        get() = Config.values.scoreboardShowDiedToYouStoleKill
+        get() = Config.values.scoreboardShowDiedToYouStoleKill.value
     private val showDoneAndReceived: Boolean
-        get() = Config.values.scoreboardShowDoneAndReceived
+        get() = Config.values.scoreboardShowDoneAndReceived.value
     private val splitScoreBoard: Boolean
-        get() = Config.values.scoreboardSplitScoreBoard
+        get() = Config.values.scoreboardSplitScoreBoard.value
 
     private val spaceBetweenSplit = 6
 

@@ -1,6 +1,6 @@
 package com.ebicep.warlordsplusplus.fabric.events
 
-import com.ebicep.warlordsplusplus.fabric.config.ConfigScreen
+import com.ebicep.warlordsplusplus.config.ConfigScreen
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.context.CommandContext

@@ -19,11 +19,11 @@ import net.minecraft.network.chat.MutableComponent
 object PrintStatsAfterGame : Module {
 
     private val printAbilityStatsAfterGame: Boolean
-        get() = Config.values.printAbilityStatsAfterGame
+        get() = Config.values.printAbilityStatsAfterGame.value
     private val printGeneralStatsAfterGame: Boolean
-        get() = Config.values.printGeneralStatsAfterGame
+        get() = Config.values.printGeneralStatsAfterGame.value
     private val printScoreboardStatsAfterGame: Boolean
-        get() = Config.values.printScoreboardStatsAfterGame
+        get() = Config.values.printScoreboardStatsAfterGame.value
 
     val WHITE_SPACER = Component.literal(" - ").withStyle { it.withColor(ChatFormatting.WHITE) }
     val abilityStats: MutableMap<String, AbilityStat> = mutableMapOf()

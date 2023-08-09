@@ -40,7 +40,7 @@ object CooldownRenderer : Module {
     ) : RenderApiPlayer(poseStack, bufferSource, entity) {
 
         override fun shouldRender(): Boolean {
-            return Config.values.renderPlayerInfo &&
+            return Config.values.renderPlayerInfo.value &&
                     GameStateManager.inWarlords2 &&
                     GameStateManager.inGame &&
                     entity != Minecraft.getInstance().player &&

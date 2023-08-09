@@ -1,15 +1,26 @@
+@file:UseSerializers(
+    MutableBooleanSerializer::class,
+    MutableIntSerializer::class
+)
+
 package com.ebicep.warlordsplusplus.config
 
 import com.ebicep.warlordsplusplus.ExpectPlatform
 import com.ebicep.warlordsplusplus.MOD_ID
+import com.ebicep.warlordsplusplus.WarlordsPlusPlus
+import com.ebicep.warlordsplusplus.config.mutable.MutableBoolean
+import com.ebicep.warlordsplusplus.config.mutable.MutableBooleanSerializer
+import com.ebicep.warlordsplusplus.config.mutable.MutableInt
+import com.ebicep.warlordsplusplus.config.mutable.MutableIntSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 import kotlinx.serialization.json.Json
 import java.io.File
 
 private val json = Json {
-    prettyPrint = true
-    ignoreUnknownKeys = true
     encodeDefaults = true
+    ignoreUnknownKeys = true
+    prettyPrint = true
 }
 
 object Config {
@@ -26,6 +37,7 @@ object Config {
     }
 
     fun load() {
+        WarlordsPlusPlus.LOGGER.info("Config Directory: ${ExpectPlatform.getConfigDirectory().toAbsolutePath().normalize()}")
         val configDirectory = File(ExpectPlatform.getConfigDirectory().toString(), "config")
         if (!configDirectory.exists()) {
             return
@@ -45,17 +57,17 @@ object Config {
 
 @Serializable
 data class ConfigVariables(
-    var enabled: Boolean = true,
-    var scoreboardEnabled: Boolean = true,
-    var scoreboardScaleCTFTDM: Int = 100,
-    var scoreboardScaleDOM: Int = 100,
-    var scoreboardShowTopHeader: Boolean = true,
-    var scoreboardShowOutline: Boolean = true,
-    var scoreboardShowDiedToYouStoleKill: Boolean = false,
-    var scoreboardShowDoneAndReceived: Boolean = true,
-    var scoreboardSplitScoreBoard: Boolean = true,
-    var renderPlayerInfo: Boolean = true,
-    var printAbilityStatsAfterGame: Boolean = true,
-    var printGeneralStatsAfterGame: Boolean = true,
-    var printScoreboardStatsAfterGame: Boolean = true
+    var enabled: MutableBoolean = MutableBoolean(),
+    var scoreboardEnabled: MutableBoolean = MutableBoolean(),
+    var scoreboardScaleCTFTDM: MutableInt = MutableInt(),
+    var scoreboardScaleDOM: MutableInt = MutableInt(),
+    var scoreboardShowTopHeader: MutableBoolean = MutableBoolean(),
+    var scoreboardShowOutline: MutableBoolean = MutableBoolean(),
+    var scoreboardShowDiedToYouStoleKill: MutableBoolean = MutableBoolean(false),
+    var scoreboardShowDoneAndReceived: MutableBoolean = MutableBoolean(),
+    var scoreboardSplitScoreBoard: MutableBoolean = MutableBoolean(),
+    var renderPlayerInfo: MutableBoolean = MutableBoolean(),
+    var printAbilityStatsAfterGame: MutableBoolean = MutableBoolean(),
+    var printGeneralStatsAfterGame: MutableBoolean = MutableBoolean(),
+    var printScoreboardStatsAfterGame: MutableBoolean = MutableBoolean(false),
 )

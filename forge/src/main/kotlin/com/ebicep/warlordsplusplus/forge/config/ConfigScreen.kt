@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.fabric.config
+package com.ebicep.warlordsplusplus.forge.config
 
 import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.config.mutable.MutableBoolean
