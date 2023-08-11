@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
+import java.time.Instant
 
 object CooldownRenderer : Module {
 
@@ -51,6 +52,9 @@ object CooldownRenderer : Module {
             val otherWarlordsPlayer = OtherWarlordsPlayers.playersMap[entity.scoreboardName]
             if (otherWarlordsPlayer == null) {
                 OtherWarlordsPlayers.getOtherWarlordsPlayers()
+                return
+            }
+            if (otherWarlordsPlayer.lastUpdated.isBefore(Instant.now().minusSeconds(5))) {
                 return
             }
             poseStack {

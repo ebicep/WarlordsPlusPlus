@@ -15,6 +15,7 @@ enum class WarlordClass(val classname: String, val shortName: String) {
     MAGE("Mage", "MAG"),
     PALADIN("Paladin", "PAL"),
     ROGUE("Rogue", "ROG"),
+    ARCANIST("Arcanist", "ARC"),
     NONE("NONE", "NONE")
 }
 
@@ -161,6 +162,33 @@ enum class Specialization(
         "Remedic Chains",
         "Draining Miasma",
         "Impaling",
+        SpecType.HEALER
+    ),
+    CONJURER(
+        "Conjurer",
+        "Soulfire Beam",
+        "Energy Seer",
+        "Contagious Facade",
+        "Astral Plague",
+        "Poisonous",
+        SpecType.DAMAGE
+    ),
+    SENTINEL(
+        "Sentinel",
+        "Guardian Beam",
+        "Energy Seer",
+        "Mystical Barrier",
+        "Sanctuary",
+        "Fortifying",
+        SpecType.TANK
+    ),
+    LUMINARY(
+        "Luminary",
+        "Ray of Light",
+        "Energy Seer",
+        "Sanctified Beacon",
+        "Divine Blessing",
+        "Merciful",
         SpecType.HEALER
     ),
 

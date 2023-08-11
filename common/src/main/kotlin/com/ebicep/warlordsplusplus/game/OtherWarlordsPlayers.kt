@@ -19,6 +19,7 @@ import net.minecraft.network.chat.TextColor
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.scores.PlayerTeam
+import java.time.Instant
 import java.util.*
 import java.util.regex.Pattern
 
@@ -51,6 +52,7 @@ open class OtherWarlordsPlayer(val name: String, val uuid: UUID) {
     var respawn: Int = -1
     var hasFlag: Boolean = false
 
+    var lastUpdated: Instant = Instant.now()
     var currentEnergy: Int = 0
     var maxEnergy: Int = 0
     var redCooldown: Int = 0
