@@ -82,7 +82,7 @@ object PrintStatsAfterGame : Module {
         val players = OtherWarlordsPlayers.playersMap.values
         val playerKills = WarlordsPlayer.kills
         val teamKills = players.filter { it.team == WarlordsPlayer.team }.sumOf { it.kills }
-        val killParticipation = if (playerKills == 0) 0 else (playerKills / teamKills) * 100
+        val killParticipation = if (teamKills == 0) 0 else (playerKills / teamKills) * 100
         Minecraft.getInstance().player!!.sendSystemMessage(Component.empty()
             .withStyle { it.withColor(ChatFormatting.WHITE) }
             .append(Component.literal("Hits: ")

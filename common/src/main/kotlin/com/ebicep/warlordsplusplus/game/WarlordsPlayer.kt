@@ -34,9 +34,9 @@ object WarlordsPlayer {
     var minuteStat = Array(1) { IntArray(7) }
         private set
     val kills: Int
-        get() = minuteStat[0].sum()
+        get() = minuteStat.sumOf { it[0] }
     val hits: Int
-        get() = minuteStat[2].sum()
+        get() = minuteStat.sumOf { it[2] }
 
     var spec: Specialization = Specialization.NONE
     var superSpec: SpecType = SpecType.NONE

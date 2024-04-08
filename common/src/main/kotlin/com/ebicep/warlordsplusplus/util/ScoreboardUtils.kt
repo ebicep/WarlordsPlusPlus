@@ -34,6 +34,10 @@ object ScoreboardUtils {
         return getUnformattedText(teams[relativeLine])
     }
 
+    fun getContaining(teams: List<PlayerTeam>, containing: String): String? {
+        return teams.firstOrNull { getUnformattedText(it).contains(containing) }?.let { getUnformattedText(it) }
+    }
+
     fun containsAtAnywhere(teams: List<PlayerTeam>, text: String): Boolean {
         return teams.any { getUnformattedText(it).contains(text) }
     }

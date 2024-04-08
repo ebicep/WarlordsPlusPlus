@@ -8,6 +8,7 @@ import dev.architectury.event.events.client.ClientSystemMessageEvent
 import dev.architectury.event.events.client.ClientTickEvent
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
+import net.minecraft.world.scores.DisplaySlot
 import org.apache.logging.log4j.Level
 
 private const val scoreboardTeamCheck = "team_" // for checking valid sidebar teams
@@ -51,7 +52,7 @@ object GameStateManager {
                 return@register
             }
             val scoreboard = Minecraft.getInstance().player?.scoreboard ?: return@register
-            val sidebarObjective = scoreboard.getDisplayObjective(1) ?: return@register
+            val sidebarObjective = scoreboard.getDisplayObjective(DisplaySlot.SIDEBAR) ?: return@register
             val unformattedDisplayName = sidebarObjective.displayName.string
             inWarlords = unformattedDisplayName.contains("WARLORDS", ignoreCase = true)
             inWarlords2 = unformattedDisplayName.contains("WARLORDS 2.0", ignoreCase = true)

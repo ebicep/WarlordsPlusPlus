@@ -19,7 +19,6 @@ object DamageAndHealParser : Detector {
 
     init {
         ClientSystemMessageEvent.RECEIVED.register { component: Component ->
-            WarlordsPlusPlus.LOGGER.info("PARSING " + component.string)
             if (GameStateManager.notInGame) {
                 return@register CompoundEventResult.pass()
             }

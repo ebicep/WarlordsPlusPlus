@@ -32,7 +32,7 @@ dependencies {
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.property("fabric_api_version")}")
     // Remove the next line if you don't want to depend on the API
     modApi("dev.architectury:architectury-fabric:${rootProject.property("architectury_version")}")
-    modApi("me.shedaniel.cloth:cloth-config-fabric:11.1.106") {
+    modApi("me.shedaniel.cloth:cloth-config-fabric:12.0.109") {
         exclude(group = "net.fabricmc.fabric-api")
     }
 
@@ -60,7 +60,10 @@ tasks.processResources {
                 "mod_id" to rootProject.property("mod_id"),
                 "minecraft_version" to rootProject.property("minecraft_version"),
                 "architectury_version" to rootProject.property("architectury_version"),
-                "fabric_kotlin_version" to rootProject.property("fabric_kotlin_version")
+                "fabric_kotlin_version" to rootProject.property("fabric_kotlin_version"),
+                "mod_name" to rootProject.property("mod_name"),
+                "mod_description" to rootProject.property("mod_description"),
+                "mod_authors" to rootProject.property("mod_authors"),
             )
         )
     }
