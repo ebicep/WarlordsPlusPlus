@@ -123,7 +123,7 @@ object ConfigScreenImpl {
         chat.addEntry(
             entryBuilder.booleanToggle(
                 "warlordsplusplus.config.chat.printScoreboardStatsAfterGame",
-                Config.values.printAbilityStatsAfterGame
+                Config.values.printScoreboardStatsAfterGame
             )
         )
     }
