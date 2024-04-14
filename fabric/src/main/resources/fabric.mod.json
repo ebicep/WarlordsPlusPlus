@@ -2,18 +2,19 @@
   "schemaVersion": 1,
   "id": "${mod_id}",
   "version": "${version}",
-  "name": "WarlordsPlusPlus",
-  "description": "YO",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "authors": [
-    "ebicep"
+    "${mod_authors}"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "TEST"
+    "homepage": "https://github.com/ebicep/WarlordsPlusPlus/",
+    "sources": "https://github.com/ebicep/WarlordsPlusPlus/",
+    "issues": "https://github.com/ebicep/WarlordsPlusPlus/issues/"
   },
-  "license": "",
+  "license": "GPL-3.0",
   "icon": "assets/warlordsplusplus/icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       {

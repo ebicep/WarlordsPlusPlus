@@ -1,8 +1,9 @@
 package com.ebicep.warlordsplusplus.game
 
-import com.ebicep.warlordsplusplus.event.WarlordsGameEventsImpl
+
+import com.ebicep.chatplus.events.EventBus
+import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEventsImpl
 import com.ebicep.warlordsplusplus.util.Specialization
 import com.ebicep.warlordsplusplus.util.Team
 import com.ebicep.warlordsplusplus.util.WarlordClass
@@ -203,11 +204,11 @@ object OtherWarlordsPlayers {
     }
 
     init {
-        WarlordsGameEventsImpl.RESET_EVENT.register {
+        EventBus.register<WarlordsGameEvents.ResetEvent> {
             playersMap.clear()
             getOtherWarlordsPlayers()
         }
-        WarlordsPlayerEventsImpl.KILL_EVENT.register {
+        EventBus.register<WarlordsPlayerEvents.KillEvent> {
             if (it.deathPlayer in playersMap) {
                 val otherWarlordsPlayer = playersMap[it.deathPlayer]!!
                 otherWarlordsPlayer.deaths++
@@ -218,17 +219,14 @@ object OtherWarlordsPlayers {
                 playersMap[it.player]!!.kills++
             }
         }
-        WarlordsPlayerEventsImpl.ABSTRACT_DAMAGE_HEAL_ENERGY_EVENT.register {
+        EventBus.register<WarlordsPlayerEvents.AbstractDamageHealEnergyEvent> {
             val player = it.player
             val otherWarlordsPlayer = if (player in playersMap) playersMap[player]!! else return@register
-            when (it::class) {
-                WarlordsPlayerEvents.DamageDoneEvent::class -> otherWarlordsPlayer.damageDone += it.amount
-
-                WarlordsPlayerEvents.DamageTakenEvent::class -> otherWarlordsPlayer.damageReceived += it.amount
-
-                WarlordsPlayerEvents.HealingGivenEvent::class -> otherWarlordsPlayer.healingDone += it.amount
-
-                WarlordsPlayerEvents.HealingReceivedEvent::class -> otherWarlordsPlayer.healingReceived += it.amount
+            when (it) {
+                is WarlordsPlayerEvents.DamageDoneEvent -> otherWarlordsPlayer.damageDone += it.amount
+                is WarlordsPlayerEvents.DamageTakenEvent -> otherWarlordsPlayer.damageReceived += it.amount
+                is WarlordsPlayerEvents.HealingGivenEvent -> otherWarlordsPlayer.healingDone += it.amount
+                is WarlordsPlayerEvents.HealingReceivedEvent -> otherWarlordsPlayer.healingReceived += it.amount
             }
         }
     }

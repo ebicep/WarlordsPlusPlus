@@ -1,7 +1,8 @@
 package com.ebicep.warlordsplusplus.detectors
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
-import com.ebicep.warlordsplusplus.event.WarlordsGameEventsImpl
+
 import dev.architectury.event.CompoundEventResult
 import dev.architectury.event.events.client.ClientSystemMessageEvent
 import net.minecraft.ChatFormatting
@@ -20,7 +21,7 @@ object GameEndDetector : Detector {
 
 
     init {
-        WarlordsGameEventsImpl.RESET_EVENT.register { e: WarlordsGameEvents.ResetEvent ->
+        EventBus.register<WarlordsGameEvents.ResetEvent> {
             canPost = false
             counter = 0
         }
@@ -35,7 +36,7 @@ object GameEndDetector : Detector {
                 divider = unformattedText
                 counter++
                 if (counter > 0 && canPost) {
-                    WarlordsGameEventsImpl.GAME_END_EVENT.invoker().onGameEnd(WarlordsGameEvents.GameEndEvent())
+                    EventBus.post(WarlordsGameEvents.GameEndEvent())
                     canPost = false
                 }
             }

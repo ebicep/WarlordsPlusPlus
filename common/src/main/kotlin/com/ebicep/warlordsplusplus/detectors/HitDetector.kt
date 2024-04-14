@@ -1,7 +1,8 @@
 package com.ebicep.warlordsplusplus.detectors
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEventsImpl
+
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import dev.architectury.event.CompoundEventResult
 import dev.architectury.event.events.client.ClientSystemMessageEvent
@@ -16,7 +17,7 @@ object HitDetector : Detector {
             }
             val msg: String = component.string
             if (msg.contains("You hit")) {
-                WarlordsPlayerEventsImpl.HIT_EVENT.invoker().onHit(
+                EventBus.post(
                     WarlordsPlayerEvents.HitEvent(
                         msg.substring(msg.indexOf("hit ") + 4, msg.indexOf("for") - 1),
                         GameStateManager.minute

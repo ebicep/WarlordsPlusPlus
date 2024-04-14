@@ -195,8 +195,6 @@ enum class Specialization(
     NONE("NONE", "", "", "", "", "NONE", SpecType.NONE);
 
 
-    ;
-
     val icon
         get() = type.coloredSymbol
     val iconComponent

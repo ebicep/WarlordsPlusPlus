@@ -1,18 +1,17 @@
 modLoader = "kotlinforforge"
 loaderVersion = "[4,)"
-#issueTrackerURL = ""
-license = "GNU GPL 3.0"
+issueTrackerURL = "https://github.com/ebicep/WarlordsPlusPlus/issues/"
+license = "GPL-3.0"
 
 [[mods]]
 modId = "${mod_id}"
 version = "${version}"
-displayName = "WarlordsPlusPlus"
-authors = "Me!"
-description = '''
-D
-'''
+displayName = "${mod_name}"
+authors = "${mod_authors}"
+description = "${mod_description}"
+logoFile = "assets/warlordsplusplus/icon.png"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "forge"
 mandatory = true
 versionRange = "[43,)"

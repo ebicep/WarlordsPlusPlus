@@ -1,7 +1,7 @@
 package com.ebicep.warlordsplusplus.game
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEventsImpl
 import com.ebicep.warlordsplusplus.util.SpecType
 import com.ebicep.warlordsplusplus.util.Specialization
 import com.ebicep.warlordsplusplus.util.Team
@@ -44,41 +44,41 @@ object WarlordsPlayer {
     var team: Team = Team.NONE
 
     init {
-        WarlordsPlayerEventsImpl.KILL_EVENT.register { event: WarlordsPlayerEvents.KillEvent ->
+        EventBus.register<WarlordsPlayerEvents.KillEvent> {
             val playerName = Minecraft.getInstance().player!!.scoreboardName
-            if (event.player == playerName) {
+            if (it.player == playerName) {
                 minuteStat[0][0]++
-            } else if (event.deathPlayer == playerName) {
+            } else if (it.deathPlayer == playerName) {
                 minuteStat[0][1]++
             }
         }
-        WarlordsPlayerEventsImpl.HIT_EVENT.register { event: WarlordsPlayerEvents.HitEvent ->
+        EventBus.register<WarlordsPlayerEvents.HitEvent> {
             minuteStat[0][2]++
         }
-        WarlordsPlayerEventsImpl.DAMAGE_DONE_EVENT.register { event: WarlordsPlayerEvents.DamageDoneEvent ->
-            damageDoneCounter += event.amount
-            minuteStat[0][3] += event.amount
+        EventBus.register<WarlordsPlayerEvents.DamageDoneEvent> {
+            damageDoneCounter += it.amount
+            minuteStat[0][3] += it.amount
         }
-        WarlordsPlayerEventsImpl.HEALING_GIVEN_EVENT.register { event: WarlordsPlayerEvents.HealingGivenEvent ->
-            healingGivenCounter += event.amount
-            minuteStat[0][4] += event.amount
+        EventBus.register<WarlordsPlayerEvents.HealingGivenEvent> {
+            healingGivenCounter += it.amount
+            minuteStat[0][4] += it.amount
         }
-        WarlordsPlayerEventsImpl.DAMAGE_TAKEN_EVENT.register { event: WarlordsPlayerEvents.DamageTakenEvent ->
-            damageTakenCounter += event.amount
-            minuteStat[0][5] += event.amount
+        EventBus.register<WarlordsPlayerEvents.DamageTakenEvent> {
+            damageTakenCounter += it.amount
+            minuteStat[0][5] += it.amount
         }
-        WarlordsPlayerEventsImpl.HEALING_RECEIVED_EVENT.register { event: WarlordsPlayerEvents.HealingReceivedEvent ->
-            healingReceivedCounter += event.amount
-            minuteStat[0][6] += event.amount
+        EventBus.register<WarlordsPlayerEvents.HealingReceivedEvent> {
+            healingReceivedCounter += it.amount
+            minuteStat[0][6] += it.amount
         }
-        WarlordsPlayerEventsImpl.ENERGY_GIVEN_EVENT.register { event: WarlordsPlayerEvents.EnergyGivenEvent ->
-            energyGivenCounter += event.amount
+        EventBus.register<WarlordsPlayerEvents.EnergyGivenEvent> {
+            energyGivenCounter += it.amount
         }
-        WarlordsPlayerEventsImpl.ENERGY_RECEIVED_EVENT.register { event: WarlordsPlayerEvents.EnergyReceivedEvent ->
-            energyReceivedCounter += event.amount
+        EventBus.register<WarlordsPlayerEvents.EnergyReceivedEvent> {
+            energyReceivedCounter += it.amount
         }
-        WarlordsPlayerEventsImpl.ENERGY_STOLEN_EVENT.register { event: WarlordsPlayerEvents.EnergyStolenEvent ->
-            energyStoleCounter += event.amount
+        EventBus.register<WarlordsPlayerEvents.EnergyStolenEvent> {
+            energyStoleCounter += it.amount
         }
     }
 

@@ -1,8 +1,9 @@
 package com.ebicep.warlordsplusplus.game
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
-import com.ebicep.warlordsplusplus.event.WarlordsGameEventsImpl
+
 import dev.architectury.event.CompoundEventResult
 import dev.architectury.event.events.client.ClientSystemMessageEvent
 import dev.architectury.event.events.client.ClientTickEvent
@@ -33,7 +34,7 @@ object GameStateManager {
         get() = time?.second ?: 0
 
     init {
-        WarlordsGameEventsImpl.RESET_EVENT.register { e: WarlordsGameEvents.ResetEvent ->
+        EventBus.register<WarlordsGameEvents.ResetEvent> {
 
         }
         ClientSystemMessageEvent.RECEIVED.register { component: Component ->
@@ -42,7 +43,7 @@ object GameStateManager {
                 unformattedText == "The gates will fall in 1 second!" ||
                 (inWarlords2 && unformattedText == "The game starts in 1 second!")
             ) {
-                WarlordsGameEventsImpl.RESET_EVENT.invoker().onReset(WarlordsGameEvents.ResetEvent())
+                EventBus.post(WarlordsGameEvents.ResetEvent())
                 WarlordsPlusPlus.LOGGER.log(Level.DEBUG, "Posted ResetEvent")
             }
             CompoundEventResult.pass()
@@ -75,10 +76,10 @@ object GameStateManager {
                     return@register
                 }
                 if (oldTime?.first != time?.first) {
-                    WarlordsGameEventsImpl.MINUTE_EVENT.invoker().onMinute(WarlordsGameEvents.MinuteEvent(time!!.first))
+                    EventBus.post(WarlordsGameEvents.MinuteEvent(time!!.first))
                 }
                 if (oldTime?.second != time?.second) {
-                    WarlordsGameEventsImpl.SECOND_EVENT.invoker().onSecond(WarlordsGameEvents.SecondEvent(time!!.second))
+                    EventBus.post(WarlordsGameEvents.SecondEvent(time!!.second))
                 }
             } catch (e: Exception) {
                 WarlordsPlusPlus.LOGGER.error("Error getting time", e)

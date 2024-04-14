@@ -1,11 +1,12 @@
 package com.ebicep.warlordsplusplus.modules.chat
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.detectors.GameEndDetector
 import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
-import com.ebicep.warlordsplusplus.event.WarlordsGameEventsImpl
+
 import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEventsImpl
+
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.ebicep.warlordsplusplus.game.WarlordsPlayer
@@ -30,7 +31,7 @@ object PrintStatsAfterGame : Module {
     var divider = ""
 
     init {
-        WarlordsGameEventsImpl.GAME_END_EVENT.register { e: WarlordsGameEvents.GameEndEvent ->
+        EventBus.register<WarlordsGameEvents.GameEndEvent> {
             val shouldPrintAnything =
                 printAbilityStatsAfterGame ||
                         printGeneralStatsAfterGame ||
@@ -51,10 +52,10 @@ object PrintStatsAfterGame : Module {
                 printScoreboardStats()
             }
         }
-        WarlordsPlayerEventsImpl.DAMAGE_DONE_EVENT.register {
+        EventBus.register<WarlordsPlayerEvents.DamageDoneEvent> {
             handleDamageHeal(it)
         }
-        WarlordsPlayerEventsImpl.HEALING_GIVEN_EVENT.register {
+        EventBus.register<WarlordsPlayerEvents.HealingGivenEvent> {
             handleDamageHeal(it)
         }
     }
@@ -125,13 +126,15 @@ object PrintStatsAfterGame : Module {
             )
             .append(players.filter { it.team == Team.RED }.map { it.kills }.sum().toString())
             .append("\n")
-            .append(Component.literal("Healing Received: ")
-                .withStyle { it.withColor(ChatFormatting.YELLOW) }
+            .append(
+                Component.literal("Healing Received: ")
+                    .withStyle { it.withColor(ChatFormatting.GREEN) }
             )
             .append(WarlordsPlayer.healingReceivedCounter.toString())
             .append("  ")
-            .append(Component.literal("Damage Received: ")
-                .withStyle { it.withColor(ChatFormatting.BLUE) }
+            .append(
+                Component.literal("Damage Received: ")
+                    .withStyle { it.withColor(ChatFormatting.RED) }
             )
             .append(WarlordsPlayer.damageTakenCounter.toString())
         )

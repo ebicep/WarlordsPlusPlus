@@ -1,7 +1,9 @@
 package com.ebicep.warlordsplusplus.modules.scoreboard
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
-import com.ebicep.warlordsplusplus.event.TabListRenderEvent
+
+import com.ebicep.warlordsplusplus.events.TabListRenderEvent
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
@@ -38,7 +40,8 @@ object WarlordsPlusPlusScoreBoard : Module {
 
     init {
         var renderer: Renderer? = null
-        TabListRenderEvent.TAB_LIST_RENDER_PRE.register { guiGraphics, i, scoreboard, objective ->
+        EventBus.register<TabListRenderEvent> {
+            val guiGraphics = it.guiGraphics
             if (renderer == null) {
                 renderer = Renderer(guiGraphics)
             } else {

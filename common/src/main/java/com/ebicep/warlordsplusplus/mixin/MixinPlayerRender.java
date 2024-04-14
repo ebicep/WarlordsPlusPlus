@@ -1,6 +1,7 @@
 package com.ebicep.warlordsplusplus.mixin;
 
-import com.ebicep.warlordsplusplus.event.PlayerRenderEvent;
+import com.ebicep.chatplus.events.EventBus;
+import com.ebicep.warlordsplusplus.events.PlayerRenderEvent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,12 +19,8 @@ public class MixinPlayerRender {
             at = @At("HEAD")
     )
     public void render(AbstractClientPlayer abstractClientPlayer, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
-        if (multiBufferSource instanceof MultiBufferSource.BufferSource) {
-            PlayerRenderEvent.PLAYER_RENDER_POST.invoker().onPlayerRender(
-                    poseStack,
-                    (MultiBufferSource.BufferSource) multiBufferSource,
-                    abstractClientPlayer
-            );
+        if (multiBufferSource instanceof MultiBufferSource.BufferSource bufferSource) {
+            EventBus.INSTANCE.post(PlayerRenderEvent.class, new PlayerRenderEvent(poseStack, bufferSource, abstractClientPlayer));
         }
     }
 

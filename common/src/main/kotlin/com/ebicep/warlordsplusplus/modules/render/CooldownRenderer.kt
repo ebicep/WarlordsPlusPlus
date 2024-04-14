@@ -1,7 +1,9 @@
 package com.ebicep.warlordsplusplus.modules.render
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
-import com.ebicep.warlordsplusplus.event.PlayerRenderEvent
+
+import com.ebicep.warlordsplusplus.events.PlayerRenderEvent
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.ebicep.warlordsplusplus.modules.Module
@@ -20,7 +22,10 @@ object CooldownRenderer : Module {
 
     init {
         var renderer: Renderer? = null
-        PlayerRenderEvent.PLAYER_RENDER_POST.register { poseStack, bufferSource, entity ->
+        EventBus.register<PlayerRenderEvent> {
+            val poseStack = it.poseStack
+            val bufferSource = it.bufferSource
+            val entity = it.entity
             if (renderer == null) {
                 renderer = Renderer(poseStack, bufferSource, entity)
             } else {

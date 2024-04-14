@@ -1,8 +1,9 @@
 package com.ebicep.warlordsplusplus.detectors
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEventsImpl
+
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import dev.architectury.event.CompoundEventResult
 import dev.architectury.event.events.client.ClientSystemMessageEvent
@@ -67,7 +68,7 @@ object DamageAndHealParser : Detector {
                     }
                     when {
                         msg.contains("health") -> {
-                            WarlordsPlayerEventsImpl.HEALING_RECEIVED_EVENT.invoker().onHealingReceived(
+                            EventBus.post(
                                 WarlordsPlayerEvents.HealingReceivedEvent(
                                     amount,
                                     otherPlayer,
@@ -78,7 +79,7 @@ object DamageAndHealParser : Detector {
                         }
 
                         msg.contains("damage") -> {
-                            WarlordsPlayerEventsImpl.DAMAGE_TAKEN_EVENT.invoker().onDamageTaken(
+                            EventBus.post(
                                 WarlordsPlayerEvents.DamageTakenEvent(
                                     amount,
                                     otherPlayer,
@@ -88,7 +89,7 @@ object DamageAndHealParser : Detector {
                             )
                             //Player lost Energy from otherPlayer's Avenger's Strike
                             if (msg.contains("Avenger's Strike"))
-                                WarlordsPlayerEventsImpl.ENERGY_LOST_EVENT.invoker().onEnergyLost(
+                                EventBus.post(
                                     WarlordsPlayerEvents.EnergyLostEvent(
                                         6,
                                         otherPlayer,
@@ -99,7 +100,7 @@ object DamageAndHealParser : Detector {
 
                         msg.contains("energy") -> {
                             otherPlayer = msg.substring(0, msg.indexOf("'s"))
-                            WarlordsPlayerEventsImpl.ENERGY_RECEIVED_EVENT.invoker().onEnergyReceived(
+                            EventBus.post(
                                 WarlordsPlayerEvents.EnergyReceivedEvent(
                                     amount,
                                     otherPlayer,
@@ -108,14 +109,13 @@ object DamageAndHealParser : Detector {
                             )
                         }
                     }
-
                 } else if (msg.contains(YOU_DID)) {
                     when {
                         //Your ABILITY healed PLAYER for
                         msg.contains("health") && !msg.contains("you") -> {
                             otherPlayer = msg.substring(msg.indexOf("healed ") + 7, msg.indexOf("for") - 1)
                             ability = msg.substring(msg.indexOf("Your") + 5, msg.indexOf("healed") - 1)
-                            WarlordsPlayerEventsImpl.HEALING_GIVEN_EVENT.invoker().onHealingGiven(
+                            EventBus.post(
                                 WarlordsPlayerEvents.HealingGivenEvent(
                                     amount,
                                     otherPlayer,
@@ -128,7 +128,7 @@ object DamageAndHealParser : Detector {
                         msg.contains("health") -> {
                             otherPlayer = Minecraft.getInstance().player!!.name.string
                             ability = msg.substring(msg.indexOf("Your") + 5, msg.indexOf("healed") - 1)
-                            WarlordsPlayerEventsImpl.HEALING_GIVEN_EVENT.invoker().onHealingGiven(
+                            EventBus.post(
                                 WarlordsPlayerEvents.HealingGivenEvent(
                                     amount,
                                     otherPlayer,
@@ -141,7 +141,7 @@ object DamageAndHealParser : Detector {
                         msg.contains("damage") -> {
                             otherPlayer = msg.substring(msg.indexOf("hit ") + 4, msg.indexOf("for") - 1)
                             ability = msg.substring(msg.indexOf("Your") + 5, msg.indexOf("hit") - 1)
-                            WarlordsPlayerEventsImpl.DAMAGE_DONE_EVENT.invoker().onDamageDone(
+                            EventBus.post(
                                 WarlordsPlayerEvents.DamageDoneEvent(
                                     amount,
                                     otherPlayer,
@@ -151,7 +151,7 @@ object DamageAndHealParser : Detector {
                             )
                             //Player's Avenger's Strike stole energy from otherPlayer
                             if (msg.contains("Avengers Strike"))
-                                WarlordsPlayerEventsImpl.ENERGY_STOLEN_EVENT.invoker().onEnergyStolen(
+                                EventBus.post(
                                     WarlordsPlayerEvents.EnergyStolenEvent(
                                         6,
                                         otherPlayer,
@@ -163,7 +163,7 @@ object DamageAndHealParser : Detector {
                         msg.contains("energy") -> {
                             otherPlayer = msg.substring(msg.indexOf("gave") + 5, msg.indexOf("energy") - 4)
                             ability = msg.substring(msg.indexOf("Your") + 5, msg.indexOf("gave") - 1)
-                            WarlordsPlayerEventsImpl.ENERGY_GIVEN_EVENT.invoker().onEnergyGiven(
+                            EventBus.post(
                                 WarlordsPlayerEvents.EnergyGivenEvent(
                                     amount,
                                     otherPlayer,
@@ -175,7 +175,7 @@ object DamageAndHealParser : Detector {
                         msg.contains("absorbed") -> {
                             otherPlayer = msg.substring(msg.indexOf("by") + 3)
                             ability = msg.substring(msg.indexOf("Your") + 5, msg.indexOf("was") - 1)
-                            WarlordsPlayerEventsImpl.DAMAGE_ABSORBED_EVENT.invoker().onDamageAbsorbed(
+                            EventBus.post(
                                 WarlordsPlayerEvents.DamageAbsorbedEvent(
                                     amount,
                                     otherPlayer,
