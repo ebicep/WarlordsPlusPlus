@@ -2,7 +2,6 @@ package com.ebicep.warlordsplusplus.modules.scoreboard
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
-
 import com.ebicep.warlordsplusplus.events.TabListRenderEvent
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
@@ -16,7 +15,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.multiplayer.ClientPacketListener
 import net.minecraft.network.chat.Component
-import net.minecraft.world.InteractionResult
 import net.minecraft.world.scores.DisplaySlot
 import net.minecraft.world.scores.Objective
 
@@ -49,9 +47,7 @@ object WarlordsPlusPlusScoreBoard : Module {
                 renderer!!.bufferSource = guiGraphics.bufferSource()
             }
             if (renderer!!.render()) {
-                InteractionResult.FAIL
-            } else {
-                InteractionResult.PASS
+                it.returnFunction = true
             }
         }
     }
@@ -212,8 +208,8 @@ object WarlordsPlusPlusScoreBoard : Module {
                         .draw()
                     translateX(xName)
                     Component.empty()
-                        .append(Component.literal(if (p.hasFlag) "⚐ " else "")
-                            .withStyle { it.withColor(p.team.color) }
+                        .append(Component.literal(if (p.hasFlag) "⚑ " else "")
+                            .withStyle { it.withColor(if (p.hasFlag) ChatFormatting.WHITE else p.team.color) }
                         )
                         .append(Component.literal("${if (dead && !GameStateManager.inWarlords2) "${p.respawn} " else ""}${p.name}")
                             .withStyle {

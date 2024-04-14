@@ -11,28 +11,18 @@ import net.minecraft.client.Minecraft
 object WarlordsPlayer {
 
     var healingGivenCounter = 0
-        private set
     var damageDoneCounter = 0
-        private set
     var energyReceivedCounter = 0
-        private set
     var healingReceivedCounter = 0
-        private set
     var damageTakenCounter = 0
-        private set
     var energyGivenCounter = 0
-        private set
     var energyStoleCounter = 0
-        private set
     var energyLostCounter = 0
-        private set
     var killParticipation = 0
-        private set
 
     //minute
     //kill,death,hit,dmg,heal,dmg taken,heal received
     var minuteStat = Array(1) { IntArray(7) }
-        private set
     val kills: Int
         get() = minuteStat.sumOf { it[0] }
     val hits: Int

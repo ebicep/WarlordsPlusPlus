@@ -205,7 +205,7 @@ enum class SpecType(val specName: String, val symbol: String, val color: ChatFor
     DAMAGE("damage", "銌", ChatFormatting.RED),
     TANK("defense", "鉰", ChatFormatting.YELLOW),
     HEALER("healer", "銀", ChatFormatting.GREEN),
-    NONE("NONE", "", ChatFormatting.OBFUSCATED);
+    NONE("NONE", "  ", ChatFormatting.OBFUSCATED);
 
     val coloredSymbol = "$color$symbol" //TODO
     val coloredSymbolComponent = Component.literal(symbol)

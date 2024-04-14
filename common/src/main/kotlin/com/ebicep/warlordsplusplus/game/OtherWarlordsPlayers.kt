@@ -29,6 +29,8 @@ private val numberPattern = Pattern.compile("[0-9]{2}")
 
 open class OtherWarlordsPlayer(val name: String, val uuid: UUID) {
 
+    var scoreboardName: String? = null
+
     var kills: Int = 0
     var deaths: Int = 0
     var damageDone: Int = 0
@@ -51,7 +53,8 @@ open class OtherWarlordsPlayer(val name: String, val uuid: UUID) {
     var caps: Int = 0
     var isDead: Boolean = false
     var respawn: Int = -1
-    var hasFlag: Boolean = false
+    val hasFlag: Boolean
+        get() = scoreboardName?.contains("⚑") ?: false
 
     var lastUpdated: Instant = Instant.now()
     var currentEnergy: Int = 0
@@ -93,6 +96,24 @@ object OtherWarlordsPlayers {
     }
 
     fun getOtherWarlordsPlayers(playersInfo: MutableCollection<PlayerInfo>): Collection<OtherWarlordsPlayer> {
+        // updating player names
+        playersInfo.filter {
+            playersMap.contains(it.profile.name) && playersMap[it.profile.name] != null
+        }.filter { playerInfo ->
+            val playerTeam: PlayerTeam? = playerInfo.team
+            if (playerTeam == null) {
+                false
+            } else {
+                WarlordClass.values().any {
+                    playerTeam.playerPrefix.string.contains(it.shortName)
+                }
+            }
+        }.forEach { playerInfo ->
+            val playerTeam: PlayerTeam = playerInfo.team!!
+            val otherWarlordsPlayer = playersMap[playerInfo.profile.name] ?: return@forEach
+            otherWarlordsPlayer.scoreboardName = playerTeam.playerPrefix.string + otherWarlordsPlayer.name + playerTeam.playerSuffix.string
+        }
+
         playersInfo.filter {
             !playersMap.contains(it.profile.name)
         }.filter { playerInfo ->
@@ -107,6 +128,7 @@ object OtherWarlordsPlayers {
         }.map { playerInfo ->
             val playerTeam: PlayerTeam = playerInfo.team!!
             val otherWarlordsPlayer = OtherWarlordsPlayer(playerInfo.profile.name, playerInfo.profile.id)
+            otherWarlordsPlayer.scoreboardName = playerInfo.tabListDisplayName?.string
             otherWarlordsPlayer.warlordClass = WarlordClass.values().first {
                 playerTeam.playerPrefix.string.contains(it.shortName)
             }
@@ -139,6 +161,7 @@ object OtherWarlordsPlayers {
             playersMap[it.name] = it
         }
 
+        // spec detection
         val players = Minecraft.getInstance().level!!.players()
         playersMap.filter {
             it.value.spec == Specialization.NONE || GameStateManager.inWarlords2
@@ -194,8 +217,6 @@ object OtherWarlordsPlayers {
             }
         }
 
-        //TODO reupdate player
-
         return playersMap.values
     }
 
@@ -222,7 +243,7 @@ object OtherWarlordsPlayers {
                 healingDone = 100
                 healingReceived = 1000
                 warlordClass = WarlordClass.WARRIOR
-                spec = Specialization.REVENANT
+                spec = Specialization.NONE
                 team = Team.RED
                 level = 90
                 left = false
@@ -276,15 +297,17 @@ object OtherWarlordsPlayers {
                 playersMap[it.player]!!.kills++
             }
         }
-        EventBus.register<WarlordsPlayerEvents.AbstractDamageHealEnergyEvent> {
-            val player = it.player
-            val otherWarlordsPlayer = if (player in playersMap) playersMap[player]!! else return@register
-            when (it) {
-                is WarlordsPlayerEvents.DamageDoneEvent -> otherWarlordsPlayer.damageDone += it.amount
-                is WarlordsPlayerEvents.DamageTakenEvent -> otherWarlordsPlayer.damageReceived += it.amount
-                is WarlordsPlayerEvents.HealingGivenEvent -> otherWarlordsPlayer.healingDone += it.amount
-                is WarlordsPlayerEvents.HealingReceivedEvent -> otherWarlordsPlayer.healingReceived += it.amount
-            }
+        EventBus.register<WarlordsPlayerEvents.DamageDoneEvent> {
+            playersMap[it.player]?.damageDone = it.amount
+        }
+        EventBus.register<WarlordsPlayerEvents.DamageTakenEvent> {
+            playersMap[it.player]?.damageReceived = it.amount
+        }
+        EventBus.register<WarlordsPlayerEvents.HealingGivenEvent> {
+            playersMap[it.player]?.healingDone = it.amount
+        }
+        EventBus.register<WarlordsPlayerEvents.HealingReceivedEvent> {
+            playersMap[it.player]?.healingReceived = it.amount
         }
     }
 
