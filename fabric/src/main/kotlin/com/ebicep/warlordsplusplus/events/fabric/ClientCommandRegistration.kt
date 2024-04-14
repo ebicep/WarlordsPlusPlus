@@ -1,6 +1,8 @@
 package com.ebicep.warlordsplusplus.events.fabric
 
+import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.ConfigScreen
+import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.CommandDispatcher
@@ -18,6 +20,12 @@ object ClientCommandRegistration {
                     .then(ClientCommandManager.literal("reset")
                         .executes {
                             OtherWarlordsPlayers.playersMap.clear()
+                            Command.SINGLE_SUCCESS
+                        }
+                    )
+                    .then(ClientCommandManager.literal("fakeend")
+                        .executes {
+                            EventBus.post(WarlordsGameEvents.GameEndEvent())
                             Command.SINGLE_SUCCESS
                         }
                     )

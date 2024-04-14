@@ -3,9 +3,9 @@ package com.ebicep.warlordsplusplus.modules.chat
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.detectors.GameEndDetector
-import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
+import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
+import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
 
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
@@ -128,20 +128,20 @@ object PrintStatsAfterGame : Module {
             .append("\n")
             .append(
                 Component.literal("Healing Received: ")
-                    .withStyle { it.withColor(ChatFormatting.GREEN) }
+                    .withStyle { it.withColor(ChatFormatting.DARK_GREEN) }
             )
             .append(WarlordsPlayer.healingReceivedCounter.toString())
             .append("  ")
             .append(
                 Component.literal("Damage Received: ")
-                    .withStyle { it.withColor(ChatFormatting.RED) }
+                    .withStyle { it.withColor(ChatFormatting.DARK_RED) }
             )
             .append(WarlordsPlayer.damageTakenCounter.toString())
         )
     }
 
     private fun printScoreboardStats() {
-        val players = OtherWarlordsPlayers.playersMap.values
+        val players = OtherWarlordsPlayers.testPlayers()//OtherWarlordsPlayers.playersMap.values
         val teamBlue = players.filter { it.team == Team.BLUE }.sortedByDescending { it.level }
         val teamRed = players.filter { it.team == Team.RED }.sortedByDescending { it.level }
 

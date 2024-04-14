@@ -2,7 +2,7 @@ package com.ebicep.warlordsplusplus.game
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
-import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
+import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 
 import dev.architectury.event.CompoundEventResult
 import dev.architectury.event.events.client.ClientSystemMessageEvent

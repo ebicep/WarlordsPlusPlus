@@ -2,8 +2,8 @@ package com.ebicep.warlordsplusplus.game
 
 
 import com.ebicep.chatplus.events.EventBus
-import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
+import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
+import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
 import com.ebicep.warlordsplusplus.util.Specialization
 import com.ebicep.warlordsplusplus.util.Team
 import com.ebicep.warlordsplusplus.util.WarlordClass
@@ -197,6 +197,63 @@ object OtherWarlordsPlayers {
         //TODO reupdate player
 
         return playersMap.values
+    }
+
+    fun testPlayers(): Collection<OtherWarlordsPlayer> {
+        return listOf(
+            OtherWarlordsPlayer("Heatran", UUID.randomUUID()).apply {
+                kills = 1
+                deaths = 2
+                damageDone = 300
+                damageReceived = 40
+                healingDone = 0
+                healingReceived = 0
+                warlordClass = WarlordClass.MAGE
+                spec = Specialization.CRYOMANCER
+                team = Team.BLUE
+                level = 7
+                left = false
+            },
+            OtherWarlordsPlayer("John_Br", UUID.randomUUID()).apply {
+                kills = 10
+                deaths = 0
+                damageDone = 0
+                damageReceived = 0
+                healingDone = 100
+                healingReceived = 1000
+                warlordClass = WarlordClass.WARRIOR
+                spec = Specialization.REVENANT
+                team = Team.RED
+                level = 90
+                left = false
+            },
+            OtherWarlordsPlayer("_RealDeal_", UUID.randomUUID()).apply {
+                kills = 0
+                deaths = 204
+                damageDone = 0
+                damageReceived = 0
+                healingDone = 3234
+                healingReceived = 0
+                warlordClass = WarlordClass.PALADIN
+                spec = Specialization.AVENGER
+                team = Team.RED
+                level = 56
+                left = false
+            },
+            OtherWarlordsPlayer("JohnSmith", UUID.randomUUID()).apply {
+                kills = 100
+                deaths = 25
+                damageDone = 30
+                damageReceived = 406
+                healingDone = 0
+                healingReceived = 0
+                warlordClass = WarlordClass.MAGE
+                spec = Specialization.PYROMANCER
+                team = Team.BLUE
+                level = 70
+                left = false
+            },
+        )
     }
 
     fun getPlayerByName(name: String): OtherWarlordsPlayer? {

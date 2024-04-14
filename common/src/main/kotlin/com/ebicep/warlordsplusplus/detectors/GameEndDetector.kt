@@ -1,7 +1,7 @@
 package com.ebicep.warlordsplusplus.detectors
 
 import com.ebicep.chatplus.events.EventBus
-import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
+import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 
 import dev.architectury.event.CompoundEventResult
 import dev.architectury.event.events.client.ClientSystemMessageEvent

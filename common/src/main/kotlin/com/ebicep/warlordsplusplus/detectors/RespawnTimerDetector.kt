@@ -1,7 +1,7 @@
 package com.ebicep.warlordsplusplus.detectors
 
 import com.ebicep.chatplus.events.EventBus
-import com.ebicep.warlordsplusplus.event.WarlordsGameEvents
+import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 
 import com.ebicep.warlordsplusplus.game.GameModes
 import com.ebicep.warlordsplusplus.game.GameStateManager

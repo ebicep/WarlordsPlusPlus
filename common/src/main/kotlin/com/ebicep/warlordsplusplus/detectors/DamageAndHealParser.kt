@@ -2,7 +2,7 @@ package com.ebicep.warlordsplusplus.detectors
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
+import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
 
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import dev.architectury.event.CompoundEventResult

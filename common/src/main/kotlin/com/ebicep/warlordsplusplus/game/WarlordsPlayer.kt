@@ -1,7 +1,7 @@
 package com.ebicep.warlordsplusplus.game
 
 import com.ebicep.chatplus.events.EventBus
-import com.ebicep.warlordsplusplus.event.WarlordsPlayerEvents
+import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
 import com.ebicep.warlordsplusplus.util.SpecType
 import com.ebicep.warlordsplusplus.util.Specialization
 import com.ebicep.warlordsplusplus.util.Team
@@ -44,6 +44,7 @@ object WarlordsPlayer {
     var team: Team = Team.NONE
 
     init {
+        setTestValues()
         EventBus.register<WarlordsPlayerEvents.KillEvent> {
             val playerName = Minecraft.getInstance().player!!.scoreboardName
             if (it.player == playerName) {
@@ -80,6 +81,24 @@ object WarlordsPlayer {
         EventBus.register<WarlordsPlayerEvents.EnergyStolenEvent> {
             energyStoleCounter += it.amount
         }
+    }
+
+    fun setTestValues() {
+        healingGivenCounter = 100
+        damageDoneCounter = 200
+        energyReceivedCounter = 300
+        healingReceivedCounter = 400
+        damageTakenCounter = 500
+        energyGivenCounter = 600
+        energyStoleCounter = 700
+        energyLostCounter = 800
+        killParticipation = 900
+
+        minuteStat = arrayOf(intArrayOf(1, 2, 3, 4, 5, 6, 7))
+        spec = Specialization.PYROMANCER
+        superSpec = SpecType.DAMAGE
+        warlord = WarlordClass.PALADIN
+        team = Team.BLUE
     }
 
 }

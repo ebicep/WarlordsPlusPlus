@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.event
+package com.ebicep.warlordsplusplus.events
 
 import com.ebicep.chatplus.events.Event
 import java.time.Instant
