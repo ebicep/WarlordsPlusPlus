@@ -1,13 +1,13 @@
-package com.ebicep.warlordsplusplus.modules.scoreboard
+package com.ebicep.warlordsplusplus.features.scoreboard
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.events.TabListRenderEvent
+import com.ebicep.warlordsplusplus.features.Feature
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.ebicep.warlordsplusplus.game.WarlordsPlayer
-import com.ebicep.warlordsplusplus.modules.Module
 import com.ebicep.warlordsplusplus.renderapi.api.RenderApiGui
 import com.ebicep.warlordsplusplus.util.Colors
 import com.ebicep.warlordsplusplus.util.Team
@@ -18,7 +18,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.scores.DisplaySlot
 import net.minecraft.world.scores.Objective
 
-object WarlordsPlusPlusScoreBoard : Module {
+object WarlordsPlusPlusScoreBoard : Feature {
 
     private val showNewScoreboard: Boolean
         get() = Config.values.scoreboardEnabled.value

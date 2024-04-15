@@ -1,12 +1,11 @@
-package com.ebicep.warlordsplusplus.modules.render
+package com.ebicep.warlordsplusplus.features.render
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
-
 import com.ebicep.warlordsplusplus.events.PlayerRenderEvent
+import com.ebicep.warlordsplusplus.features.Feature
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
-import com.ebicep.warlordsplusplus.modules.Module
 import com.ebicep.warlordsplusplus.renderapi.api.RenderApiPlayer
 import com.ebicep.warlordsplusplus.util.Colors
 import com.ebicep.warlordsplusplus.util.ImageRegistry
@@ -17,7 +16,7 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import java.time.Instant
 
-object CooldownRenderer : Module {
+object CooldownRenderer : Feature {
 
 
     init {

@@ -3,7 +3,7 @@ package com.ebicep.warlordsplusplus
 import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.config.ConfigScreen
 import com.ebicep.warlordsplusplus.detectors.DetectorManager
-import com.ebicep.warlordsplusplus.modules.ModuleManager
+import com.ebicep.warlordsplusplus.features.FeatureManager
 import dev.architectury.event.events.client.ClientTickEvent
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -16,7 +16,7 @@ object WarlordsPlusPlus {
 
     fun init() {
         DetectorManager
-        ModuleManager
+        FeatureManager
 
         Config.load()
 

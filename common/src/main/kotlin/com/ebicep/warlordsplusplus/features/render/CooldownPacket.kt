@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.modules.render
+package com.ebicep.warlordsplusplus.features.render
 
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers

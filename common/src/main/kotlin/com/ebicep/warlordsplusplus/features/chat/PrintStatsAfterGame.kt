@@ -1,23 +1,21 @@
-package com.ebicep.warlordsplusplus.modules.chat
+package com.ebicep.warlordsplusplus.features.chat
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.detectors.GameEndDetector
 import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
-
 import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
-
+import com.ebicep.warlordsplusplus.features.Feature
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.ebicep.warlordsplusplus.game.WarlordsPlayer
-import com.ebicep.warlordsplusplus.modules.Module
 import com.ebicep.warlordsplusplus.util.Team
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 
-object PrintStatsAfterGame : Module {
+object PrintStatsAfterGame : Feature {
 
     private val printAbilityStatsAfterGame: Boolean
         get() = Config.values.printAbilityStatsAfterGame.value
@@ -141,7 +139,7 @@ object PrintStatsAfterGame : Module {
     }
 
     private fun printScoreboardStats() {
-        val players = OtherWarlordsPlayers.testPlayers()//OtherWarlordsPlayers.playersMap.values
+        val players = OtherWarlordsPlayers.playersMap.values
         val teamBlue = players.filter { it.team == Team.BLUE }.sortedByDescending { it.level }
         val teamRed = players.filter { it.team == Team.RED }.sortedByDescending { it.level }
 
