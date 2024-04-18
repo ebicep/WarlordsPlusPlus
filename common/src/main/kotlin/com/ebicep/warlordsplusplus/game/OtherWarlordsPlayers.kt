@@ -115,6 +115,8 @@ object OtherWarlordsPlayers {
             val playerTeam: PlayerTeam = playerInfo.team!!
             val otherWarlordsPlayer = playersMap[playerInfo.profile.name] ?: return@forEach
             otherWarlordsPlayer.scoreboardName = playerTeam.playerPrefix.string + otherWarlordsPlayer.name + playerTeam.playerSuffix.string
+            otherWarlordsPlayer.warlordClass = WarlordClass.values().first { playerTeam.playerPrefix.string.contains(it.shortName) }
+            otherWarlordsPlayer.team = Team.values().first { playerTeam.color == it.color }
         }
 
         playersInfo.filter {
