@@ -96,6 +96,9 @@ object OtherWarlordsPlayers {
     }
 
     fun getOtherWarlordsPlayers(playersInfo: MutableCollection<PlayerInfo>): Collection<OtherWarlordsPlayer> {
+        playersMap.values.forEach {
+            it.scoreboardName = null
+        }
         // updating player names
         playersInfo.filter {
             playersMap.contains(it.profile.name) && playersMap[it.profile.name] != null
