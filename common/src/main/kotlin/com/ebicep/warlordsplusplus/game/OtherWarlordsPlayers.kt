@@ -301,16 +301,24 @@ object OtherWarlordsPlayers {
             }
         }
         EventBus.register<WarlordsPlayerEvents.DamageDoneEvent> {
-            playersMap[it.player]?.damageDone = it.amount
+            if (it.player in playersMap) {
+                playersMap[it.player]!!.damageDone += it.amount
+            }
         }
         EventBus.register<WarlordsPlayerEvents.DamageTakenEvent> {
-            playersMap[it.player]?.damageReceived = it.amount
+            if (it.player in playersMap) {
+                playersMap[it.player]!!.damageReceived += it.amount
+            }
         }
         EventBus.register<WarlordsPlayerEvents.HealingGivenEvent> {
-            playersMap[it.player]?.healingDone = it.amount
+            if (it.player in playersMap) {
+                playersMap[it.player]!!.healingDone += it.amount
+            }
         }
         EventBus.register<WarlordsPlayerEvents.HealingReceivedEvent> {
-            playersMap[it.player]?.healingReceived = it.amount
+            if (it.player in playersMap) {
+                playersMap[it.player]!!.healingReceived += it.amount
+            }
         }
     }
 

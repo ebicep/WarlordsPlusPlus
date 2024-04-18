@@ -34,7 +34,7 @@ object WarlordsPlayer {
     var team: Team = Team.NONE
 
     init {
-        setTestValues()
+//        setTestValues()
         EventBus.register<WarlordsPlayerEvents.KillEvent> {
             val playerName = Minecraft.getInstance().player!!.scoreboardName
             if (it.player == playerName) {
