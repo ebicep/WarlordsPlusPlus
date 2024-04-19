@@ -2,12 +2,11 @@ package com.ebicep.warlordsplusplus.features.hud.elements
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
-import com.ebicep.warlordsplusplus.features.hud.AbstractHudElement
 import com.ebicep.warlordsplusplus.util.ComponentBuilder
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.MutableComponent
 
-object StreakHudElement : AbstractHudElement(0, 0) {
+object StreakHudElement : AbstractHighlightedHudElement(0, 0) {
 
     private var streak = 0
 
@@ -32,7 +31,7 @@ object StreakHudElement : AbstractHudElement(0, 0) {
         return true
     }
 
-    override fun getText(): MutableComponent {
+    override fun getComponent(): MutableComponent {
         val text: String
         val color: ChatFormatting
         when {

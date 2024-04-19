@@ -6,6 +6,8 @@ import com.ebicep.warlordsplusplus.util.ImageRegistry
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
 import com.mojang.math.Axis
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
@@ -19,10 +21,17 @@ import net.minecraft.world.phys.Vec3
 import org.apache.logging.log4j.Level
 import org.joml.Quaternionf
 
-abstract class RenderApi(var guiGraphics: GuiGraphics?) : Render {
-    // Declare guiGraphics as a property of the class
+@Serializable
+abstract class RenderApi : Render {
+
+    @Transient
+    abstract var guiGraphics: GuiGraphics?
+
+    @Transient
     val poseStack: PoseStack
         get() = guiGraphics!!.pose()
+
+    @Transient
     val bufferSource: MultiBufferSource.BufferSource
         get() = guiGraphics!!.bufferSource()
 
@@ -403,5 +412,5 @@ abstract class RenderApi(var guiGraphics: GuiGraphics?) : Render {
         fn()
         scale(1 / amount)
     }
-    
+
 }

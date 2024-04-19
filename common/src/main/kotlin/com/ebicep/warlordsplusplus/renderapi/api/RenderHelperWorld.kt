@@ -9,7 +9,7 @@ import net.minecraft.util.Mth
 import net.minecraft.world.phys.Vec3
 
 
-abstract class RenderHelperWorld(guiGraphics: GuiGraphics) : RenderApi(guiGraphics) {
+abstract class RenderHelperWorld(override var guiGraphics: GuiGraphics?) : RenderApi() {
 
     override fun setupRender() {
         createPose {

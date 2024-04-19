@@ -11,10 +11,10 @@ import net.minecraft.world.phys.Vec3
 import org.joml.Quaternionf
 
 abstract class RenderHelperPlayer(
-    guiGraphics: GuiGraphics,
+    override var guiGraphics: GuiGraphics?,
     var entity: Player,
     private val autoRotate: Boolean = true
-) : RenderApi(guiGraphics) {
+) : RenderApi() {
 
     override fun setupRender() {
         createPose {

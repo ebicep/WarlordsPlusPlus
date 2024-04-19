@@ -21,6 +21,8 @@ object HudElementManager : Feature {
             add(WLHudElement)
             add(StreakHudElement)
             add(RegenTimerHudElement)
+
+            add(RespawnTimerDisplay)
         }
         ClientTickEvent.CLIENT_POST.register {
             if (openScreen) {
@@ -28,12 +30,12 @@ object HudElementManager : Feature {
                 Minecraft.getInstance().setScreen(HudElementScreen())
             }
         }
-        ClientGuiEvent.RENDER_HUD.register { guiGraphics, tickDelta ->
+        ClientGuiEvent.RENDER_HUD.register { guiGraphics, _ ->
             hudElements.forEach {
-                it.renderHelper.guiGraphics = guiGraphics
-                it.renderHelper.createPose {
-                    it.renderHelper.translate(it.x.toDouble(), it.y.toDouble())
-                    it.renderHelper.render()
+                it.guiGraphics = guiGraphics
+                it.createPose {
+                    it.translate(it.x.toDouble(), it.y.toDouble())
+                    it.render()
                 }
             }
         }

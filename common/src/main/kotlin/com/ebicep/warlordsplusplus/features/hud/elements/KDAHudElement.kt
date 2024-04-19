@@ -2,13 +2,12 @@ package com.ebicep.warlordsplusplus.features.hud.elements
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
-import com.ebicep.warlordsplusplus.features.hud.AbstractHudElement
 import com.ebicep.warlordsplusplus.util.ComponentBuilder
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.MutableComponent
 
-object KDAHudElement : AbstractHudElement(0, 0) {
+object KDAHudElement : AbstractHighlightedHudElement(0, 0) {
 
     private var kills = 0
     private var deaths = 0
@@ -31,7 +30,7 @@ object KDAHudElement : AbstractHudElement(0, 0) {
         return true
     }
 
-    override fun getText(): MutableComponent {
+    override fun getComponent(): MutableComponent {
         return ComponentBuilder("Total K/D/A: ", ChatFormatting.WHITE)
             .append("$kills", ChatFormatting.GREEN)
             .append("/")

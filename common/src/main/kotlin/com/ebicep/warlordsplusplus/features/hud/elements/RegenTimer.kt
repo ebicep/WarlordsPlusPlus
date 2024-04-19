@@ -3,13 +3,12 @@ package com.ebicep.warlordsplusplus.features.hud.elements
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
-import com.ebicep.warlordsplusplus.features.hud.AbstractHudElement
 import com.ebicep.warlordsplusplus.util.ComponentBuilder
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.MutableComponent
 
-object RegenTimerHudElement : AbstractHudElement(0, 0) {
+object RegenTimerHudElement : AbstractHighlightedHudElement(0, 0) {
 
     private var regenTimer = 0
 
@@ -28,7 +27,7 @@ object RegenTimerHudElement : AbstractHudElement(0, 0) {
         return true
     }
 
-    override fun getText(): MutableComponent? {
+    override fun getComponent(): MutableComponent? {
         val player = Minecraft.getInstance().player
         if (player?.health == player?.maxHealth) {
             return null
