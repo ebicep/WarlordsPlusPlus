@@ -8,7 +8,7 @@ import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.ebicep.warlordsplusplus.game.WarlordsPlayer
-import com.ebicep.warlordsplusplus.renderapi.api.RenderApiGui
+import com.ebicep.warlordsplusplus.renderapi.api.RenderHelperGui
 import com.ebicep.warlordsplusplus.util.Colors
 import com.ebicep.warlordsplusplus.util.Team
 import net.minecraft.ChatFormatting
@@ -37,22 +37,15 @@ object WarlordsPlusPlusScoreBoard : Feature {
 
 
     init {
-        var renderer: Renderer? = null
         EventBus.register<TabListRenderEvent> {
             val guiGraphics = it.guiGraphics
-            if (renderer == null) {
-                renderer = Renderer(guiGraphics)
-            } else {
-                renderer!!.poseStack = guiGraphics.pose()
-                renderer!!.bufferSource = guiGraphics.bufferSource()
-            }
-            if (renderer!!.render()) {
+            if (Renderer(guiGraphics).render()) {
                 it.returnFunction = true
             }
         }
     }
 
-    class Renderer(private val guiGraphics: GuiGraphics) : RenderApiGui(guiGraphics.pose(), guiGraphics.bufferSource()) {
+    class Renderer(guiGraphics: GuiGraphics) : RenderHelperGui(guiGraphics) {
         override fun shouldRender(): Boolean {
             val scoreObjective: Objective? = mc.level!!.scoreboard.getDisplayObjective(DisplaySlot.LIST)
             val handler: ClientPacketListener = mc.player!!.connection
@@ -150,15 +143,15 @@ object WarlordsPlusPlusScoreBoard : Feature {
 
             if (showTopHeader) {
                 translate(xStart, yStart)
-                poseStack {
+                createPose {
                     scale(guiScale)
                     renderRect(unscaledWidth, 13.0, Colors.DEF)
                     translateZ(-2)
                     renderHeader()
                 }
                 if (splitScoreBoard) {
-                    poseStack {
-                        poseStack {
+                    createPose {
+                        createPose {
                             scale(guiScale)
                             translateX(unscaledWidth + spaceBetweenSplit)
                             renderRect(unscaledWidth, 13.0, Colors.DEF)
@@ -197,7 +190,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
                     }
                 }
 
-                poseStack {
+                createPose {
                     translate(xLevel, .5, -2.0)
                     Component.empty()
                         .append(Component.literal(p.warlordClass.shortName)
@@ -270,7 +263,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
             scale(guiScale)
             if (splitScoreBoard) {
                 translateY(-14)
-                poseStack {
+                createPose {
                     renderRect(unscaledWidth, 10.75 * teamBlue.size + 1, Colors.DEF, 100)
                     translateY(-2)
                     translateZ(-20)
@@ -280,7 +273,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
                     teamBlue.forEachIndexed(::renderLine)
                 }
                 translateX(unscaledWidth + spaceBetweenSplit)
-                poseStack {
+                createPose {
                     renderRect(unscaledWidth, 10.75 * teamRed.size + 1, Colors.DEF, 100)
                     translateY(-2)
                     translateZ(-20)

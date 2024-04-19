@@ -6,12 +6,11 @@ import com.ebicep.warlordsplusplus.events.PlayerRenderEvent
 import com.ebicep.warlordsplusplus.features.Feature
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
-import com.ebicep.warlordsplusplus.renderapi.api.RenderApiPlayer
+import com.ebicep.warlordsplusplus.renderapi.api.RenderHelperPlayer
 import com.ebicep.warlordsplusplus.util.Colors
 import com.ebicep.warlordsplusplus.util.ImageRegistry
-import com.mojang.blaze3d.vertex.PoseStack
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import java.time.Instant
@@ -20,29 +19,14 @@ object CooldownRenderer : Feature {
 
 
     init {
-        var renderer: Renderer? = null
         EventBus.register<PlayerRenderEvent> {
-            val poseStack = it.poseStack
-            val bufferSource = it.bufferSource
-            val entity = it.entity
-            if (renderer == null) {
-                renderer = Renderer(poseStack, bufferSource, entity)
-            } else {
-                renderer!!.poseStack = poseStack
-                renderer!!.bufferSource = bufferSource
-                renderer!!.entity = entity
-            }
-            renderer!!.render()
+            Renderer(GuiGraphics(Minecraft.getInstance(), it.bufferSource), it.entity).render()
             InteractionResult.PASS
         }
     }
 
 
-    class Renderer(
-        poseStack: PoseStack,
-        bufferSource: MultiBufferSource.BufferSource,
-        entity: Player
-    ) : RenderApiPlayer(poseStack, bufferSource, entity) {
+    class Renderer(guiGraphics: GuiGraphics, entity: Player) : RenderHelperPlayer(guiGraphics, entity) {
 
         override fun shouldRender(): Boolean {
             return Config.values.renderPlayerInfo.value &&
@@ -61,7 +45,7 @@ object CooldownRenderer : Feature {
             if (otherWarlordsPlayer.lastUpdated.isBefore(Instant.now().minusSeconds(5))) {
                 return
             }
-            poseStack {
+            createPose {
                 translateX(-36.5)
                 translateY(75.0)
                 scale(.4)
@@ -74,10 +58,10 @@ object CooldownRenderer : Feature {
                 translateX(60)
                 drawAbility(otherWarlordsPlayer.orangeCooldown, ImageRegistry.ORANGE_ABILITY)
             }
-            poseStack {
+            createPose {
                 translateY(37)
                 val width = 75f
-                poseStack {
+                createPose {
                     translateY(.5)
                     renderRectXCentered(width + 2, 6f, Colors.BLACK)
                 }
@@ -91,7 +75,7 @@ object CooldownRenderer : Feature {
                     Colors.GOLD
                 )
             }
-            poseStack {
+            createPose {
                 translateY(39.5)
                 translateZ(.05)
                 scale(1.5)
@@ -108,7 +92,7 @@ object CooldownRenderer : Feature {
         }
 
         private fun renderCooldown(cooldown: Int) {
-            poseStack {
+            createPose {
                 scale(.9)
                 translateX(5)
                 translateY(-7)

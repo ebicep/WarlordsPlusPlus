@@ -144,9 +144,9 @@ object DamageAndHealParser : Detector {
                 )
             }
         }
-        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$amount."))
-        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$otherPlayer."))
-        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$ability."))
+//        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$amount."))
+//        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$otherPlayer."))
+//        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$ability."))
     }
 
     private fun handleReceive(msg: String, amount: Int, isCrit: Boolean) {
@@ -185,9 +185,9 @@ object DamageAndHealParser : Detector {
                 ability = "melee"
             }
         }
-        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$amount."))
-        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$otherPlayer."))
-        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$ability."))
+//        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$amount."))
+//        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$otherPlayer."))
+//        Minecraft.getInstance().player?.sendSystemMessage(Component.literal("$ability."))
         when {
             msg.contains("health") -> {
                 EventBus.post(
@@ -241,6 +241,8 @@ object DamageAndHealParser : Detector {
             } else if (inputMessage.contains("Crusader")) {
                 //giving energy
                 message = inputMessage.substring(inputMessage.indexOf("energy") - 4)
+            } else if (inputMessage.contains("You took")) {
+                message = inputMessage.substring(inputMessage.indexOf("took"))
             }
             val m = numberPattern.matcher(message.replace("!", ""))
             if (!m.find()) {

@@ -2,18 +2,17 @@ package com.ebicep.warlordsplusplus.renderapi.api
 
 import com.ebicep.warlordsplusplus.renderapi.RenderApi
 import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.util.Mth
 import net.minecraft.world.phys.Vec3
 
 
-abstract class RenderApiWorld(poseStack: PoseStack, bufferSource: MultiBufferSource.BufferSource) : RenderApi(poseStack, bufferSource) {
+abstract class RenderHelperWorld(guiGraphics: GuiGraphics) : RenderApi(guiGraphics) {
 
     override fun setupRender() {
-        poseStack {
+        createPose {
             scaleForWorldRendering()
             RenderSystem.enableDepthTest() // so that text doesnt look weird (semi transparent)
             RenderSystem.enableBlend()

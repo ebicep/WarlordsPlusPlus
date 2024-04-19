@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.*
 import com.mojang.math.Axis
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.client.renderer.LightTexture
@@ -18,11 +19,13 @@ import net.minecraft.world.phys.Vec3
 import org.apache.logging.log4j.Level
 import org.joml.Quaternionf
 
-abstract class RenderApi(
-    var poseStack: PoseStack,
-    var bufferSource: MultiBufferSource.BufferSource //TODO change to MultiBufferSource?
-) : Render {
-    
+abstract class RenderApi(var guiGraphics: GuiGraphics?) : Render {
+    // Declare guiGraphics as a property of the class
+    val poseStack: PoseStack
+        get() = guiGraphics!!.pose()
+    val bufferSource: MultiBufferSource.BufferSource
+        get() = guiGraphics!!.bufferSource()
+
     companion object {
         val tesselator: Tesselator
             get() = Tesselator.getInstance()
@@ -286,7 +289,7 @@ abstract class RenderApi(
         translate(-1.0, -1.0, 0.0)
     }
 
-    inline fun poseStack(fn: () -> Unit) {
+    inline fun createPose(fn: () -> Unit) {
         poseStack.pushPose()
         fn()
         poseStack.popPose()
@@ -306,7 +309,7 @@ abstract class RenderApi(
 
     //Translate
 
-    fun translate(x: Int, y: Int = 0, z: Int = 0) =
+    fun translate(x: Int = 0, y: Int = 0, z: Int = 0) =
         translate(x.toDouble(), y.toDouble(), z.toDouble())
 
     fun translate(x: Double, y: Double = 0.0, z: Double = 0.0) =
@@ -318,7 +321,7 @@ abstract class RenderApi(
         translate(-x, -y, -z)
     }
 
-    inline fun translate(x: Double, y: Double = 0.0, z: Double = 0.0, fn: () -> Unit) {
+    inline fun translate(x: Double = 0.0, y: Double = 0.0, z: Double = 0.0, fn: () -> Unit) {
         translate(x, y, z)
         fn()
         translate(-x, -y, -z)

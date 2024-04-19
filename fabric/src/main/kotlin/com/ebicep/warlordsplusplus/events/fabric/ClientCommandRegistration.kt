@@ -3,7 +3,7 @@ package com.ebicep.warlordsplusplus.events.fabric
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.ConfigScreen
 import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
-import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
+import com.ebicep.warlordsplusplus.features.hud.HudElementManager
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.CommandDispatcher
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
@@ -19,13 +19,19 @@ object ClientCommandRegistration {
                 ClientCommandManager.literal("warlordsplusplus")
                     .then(ClientCommandManager.literal("reset")
                         .executes {
-                            OtherWarlordsPlayers.playersMap.clear()
+                            EventBus.post(WarlordsGameEvents.ResetEvent())
                             Command.SINGLE_SUCCESS
                         }
                     )
                     .then(ClientCommandManager.literal("fakeend")
                         .executes {
                             EventBus.post(WarlordsGameEvents.GameEndEvent())
+                            Command.SINGLE_SUCCESS
+                        }
+                    )
+                    .then(ClientCommandManager.literal("edit")
+                        .executes {
+                            HudElementManager.openEditScreen()
                             Command.SINGLE_SUCCESS
                         }
                     )

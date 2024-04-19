@@ -1,13 +1,12 @@
 package com.ebicep.warlordsplusplus.renderapi.api
 
 import com.ebicep.warlordsplusplus.renderapi.RenderApi
-import com.mojang.blaze3d.vertex.PoseStack
-import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.gui.GuiGraphics
 
-abstract class RenderApiGui(poseStack: PoseStack, bufferSource: MultiBufferSource.BufferSource) : RenderApi(poseStack, bufferSource) {
+abstract class RenderHelperGui(guiGraphics: GuiGraphics? = null) : RenderApi(guiGraphics) {
 
     override fun setupRender() {
-        poseStack {
+        createPose {
             render0()
         }
     }

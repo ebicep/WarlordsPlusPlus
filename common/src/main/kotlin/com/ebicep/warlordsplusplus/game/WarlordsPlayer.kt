@@ -1,6 +1,7 @@
 package com.ebicep.warlordsplusplus.game
 
 import com.ebicep.chatplus.events.EventBus
+import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
 import com.ebicep.warlordsplusplus.util.SpecType
 import com.ebicep.warlordsplusplus.util.Specialization
@@ -35,6 +36,23 @@ object WarlordsPlayer {
 
     init {
 //        setTestValues()
+        EventBus.register<WarlordsGameEvents.ResetEvent> {
+            healingGivenCounter = 0
+            damageDoneCounter = 0
+            energyReceivedCounter = 0
+            healingReceivedCounter = 0
+            damageTakenCounter = 0
+            energyGivenCounter = 0
+            energyStoleCounter = 0
+            energyLostCounter = 0
+            killParticipation = 0
+
+            minuteStat = Array(1) { IntArray(7) }
+            spec = Specialization.NONE
+            superSpec = SpecType.NONE
+            warlord = WarlordClass.NONE
+            team = Team.NONE
+        }
         EventBus.register<WarlordsPlayerEvents.KillEvent> {
             val playerName = Minecraft.getInstance().player!!.scoreboardName
             if (it.player == playerName) {

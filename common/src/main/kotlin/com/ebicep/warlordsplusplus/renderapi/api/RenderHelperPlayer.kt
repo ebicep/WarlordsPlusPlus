@@ -2,24 +2,22 @@ package com.ebicep.warlordsplusplus.renderapi.api
 
 import com.ebicep.warlordsplusplus.renderapi.RenderApi
 import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 import org.joml.Quaternionf
 
-abstract class RenderApiPlayer(
-    poseStack: PoseStack,
-    bufferSource: MultiBufferSource.BufferSource,
+abstract class RenderHelperPlayer(
+    guiGraphics: GuiGraphics,
     var entity: Player,
     private val autoRotate: Boolean = true
-) : RenderApi(poseStack, bufferSource) {
+) : RenderApi(guiGraphics) {
 
     override fun setupRender() {
-        poseStack {
+        createPose {
             translate(0.0, entity.nameTagOffsetY.toDouble(), 0.0)
             if (autoRotate) {
                 val camera = Minecraft.getInstance().gameRenderer.mainCamera
