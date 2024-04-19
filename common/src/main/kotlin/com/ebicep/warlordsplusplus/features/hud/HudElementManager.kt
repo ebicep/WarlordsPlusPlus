@@ -20,6 +20,7 @@ object HudElementManager : Feature {
             add(KDAHudElement)
             add(WLHudElement)
             add(StreakHudElement)
+            add(RegenTimerHudElement)
         }
         ClientTickEvent.CLIENT_POST.register {
             if (openScreen) {
@@ -29,13 +30,10 @@ object HudElementManager : Feature {
         }
         ClientGuiEvent.RENDER_HUD.register { guiGraphics, tickDelta ->
             hudElements.forEach {
-                if (it.renderHelper == null) {
-                    return@register
-                }
-                it.renderHelper!!.guiGraphics = guiGraphics
-                it.renderHelper!!.createPose {
-                    it.renderHelper!!.translate(it.x.toDouble(), it.y.toDouble())
-                    it.renderHelper!!.render()
+                it.renderHelper.guiGraphics = guiGraphics
+                it.renderHelper.createPose {
+                    it.renderHelper.translate(it.x.toDouble(), it.y.toDouble())
+                    it.renderHelper.render()
                 }
             }
         }

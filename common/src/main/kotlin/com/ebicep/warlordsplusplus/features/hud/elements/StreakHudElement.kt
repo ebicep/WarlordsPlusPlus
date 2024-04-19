@@ -35,15 +35,21 @@ object StreakHudElement : AbstractHudElement(0, 0) {
     override fun getText(): MutableComponent {
         val text: String
         val color: ChatFormatting
-        if (streak > 0) {
-            text = "Win Streak: $streak"
-            color = ChatFormatting.GREEN
-        } else if (streak < 0) {
-            text = "Loss Streak: ${-streak}"
-            color = ChatFormatting.RED
-        } else {
-            text = "No Streak"
-            color = ChatFormatting.WHITE
+        when {
+            streak > 0 -> {
+                text = "Win Streak: $streak"
+                color = ChatFormatting.GREEN
+            }
+
+            streak < 0 -> {
+                text = "Loss Streak: ${-streak}"
+                color = ChatFormatting.RED
+            }
+
+            else -> {
+                text = "No Streak"
+                color = ChatFormatting.WHITE
+            }
         }
         return ComponentBuilder(text, color).create()
     }

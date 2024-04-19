@@ -25,7 +25,7 @@ object WLHudElement : AbstractHudElement(0, 0) {
         return true
     }
 
-    override fun getText(): MutableComponent {
+    override fun getText(): MutableComponent? {
         return ComponentBuilder("Total W/L: ", ChatFormatting.WHITE)
             .append("$wins", ChatFormatting.GREEN)
             .append("/")

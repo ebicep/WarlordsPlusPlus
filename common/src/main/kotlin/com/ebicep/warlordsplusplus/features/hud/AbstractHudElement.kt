@@ -18,7 +18,7 @@ abstract class AbstractHudElement(var x: Int = 0, var y: Int = 0) {
         }
 
         override fun render0() {
-            val text = getText()
+            val text = getText() ?: return
             createPose {
                 translateX(-2)
                 guiGraphics?.fill(0, 0, Minecraft.getInstance().font.width(text) + 3, 11, Colors.DEF.convertToArgb(100))
@@ -32,10 +32,11 @@ abstract class AbstractHudElement(var x: Int = 0, var y: Int = 0) {
 
     abstract fun shouldRender(): Boolean
 
-    abstract fun getText(): MutableComponent
+    abstract fun getText(): MutableComponent?
 
     fun width(): Int {
-        return Minecraft.getInstance().font.width(getText())
+        val text = getText() ?: return 0
+        return Minecraft.getInstance().font.width(text)
     }
 
     fun height(): Int {

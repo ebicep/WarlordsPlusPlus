@@ -2,7 +2,8 @@ package com.ebicep.warlordsplusplus.features
 
 import com.ebicep.warlordsplusplus.features.chat.PrintStatsAfterGame
 import com.ebicep.warlordsplusplus.features.hud.HudElementManager
-import com.ebicep.warlordsplusplus.features.render.WarlordsPvEPacketHandler
+import com.ebicep.warlordsplusplus.features.render.RespawnTimerDisplay
+import com.ebicep.warlordsplusplus.features.render.cooldown.WarlordsPvEPacketHandler
 import com.ebicep.warlordsplusplus.features.scoreboard.WarlordsPlusPlusScoreBoard
 
 object FeatureManager {
@@ -15,6 +16,7 @@ object FeatureManager {
             add(PrintStatsAfterGame)
             add(WarlordsPlusPlusScoreBoard)
             add(WarlordsPvEPacketHandler)
+            add(RespawnTimerDisplay)
         }
     }
 
