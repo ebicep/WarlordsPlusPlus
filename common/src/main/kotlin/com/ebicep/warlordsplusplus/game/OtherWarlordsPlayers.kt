@@ -298,8 +298,8 @@ object OtherWarlordsPlayers {
                 otherWarlordsPlayer.isDead = true
                 otherWarlordsPlayer.respawn = it.respawn
             }
-            if (it.player in playersMap) {
-                playersMap[it.player]!!.kills++
+            if (it.killer in playersMap) {
+                playersMap[it.killer]!!.kills++
             }
         }
         EventBus.register<WarlordsPlayerEvents.DamageDoneEvent> {

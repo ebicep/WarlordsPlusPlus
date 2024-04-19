@@ -1,10 +1,7 @@
 package com.ebicep.warlordsplusplus.features.hud
 
 import com.ebicep.warlordsplusplus.features.Feature
-import com.ebicep.warlordsplusplus.features.hud.elements.DamageDoneHudElement
-import com.ebicep.warlordsplusplus.features.hud.elements.DamageTakenHudElement
-import com.ebicep.warlordsplusplus.features.hud.elements.HealingGivenHudElement
-import com.ebicep.warlordsplusplus.features.hud.elements.HealingReceivedHudElement
+import com.ebicep.warlordsplusplus.features.hud.elements.*
 import dev.architectury.event.events.client.ClientGuiEvent
 import dev.architectury.event.events.client.ClientTickEvent
 import net.minecraft.client.Minecraft
@@ -16,10 +13,11 @@ object HudElementManager : Feature {
 
     init {
         with(hudElements) {
-            add(DamageDoneHudElement())
-            add(DamageTakenHudElement())
-            add(HealingGivenHudElement())
-            add(HealingReceivedHudElement())
+            add(DamageDoneHudElement)
+            add(DamageTakenHudElement)
+            add(HealingGivenHudElement)
+            add(HealingReceivedHudElement)
+            add(KDAHudElement)
         }
         ClientTickEvent.CLIENT_POST.register {
             if (openScreen) {

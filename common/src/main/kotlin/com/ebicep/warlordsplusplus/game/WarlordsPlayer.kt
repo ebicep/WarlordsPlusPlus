@@ -55,7 +55,7 @@ object WarlordsPlayer {
         }
         EventBus.register<WarlordsPlayerEvents.KillEvent> {
             val playerName = Minecraft.getInstance().player!!.scoreboardName
-            if (it.player == playerName) {
+            if (it.killer == playerName) {
                 minuteStat[0][0]++
             } else if (it.deathPlayer == playerName) {
                 minuteStat[0][1]++

@@ -86,7 +86,7 @@ object WarlordsPlayerEvents {
     ) : AbstractDamageHealEnergyEvent()
 
     data class KillEvent(
-        val player: String,
+        val killer: String,
         val deathPlayer: String,
         val minute: Int = GameStateManager.minute,
         val respawn: Int = GameStateManager.currentGameMode.getCurrentRespawn(),
