@@ -3,14 +3,12 @@ package com.ebicep.warlordsplusplus.game
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
-
 import dev.architectury.event.CompoundEventResult
 import dev.architectury.event.events.client.ClientSystemMessageEvent
 import dev.architectury.event.events.client.ClientTickEvent
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.minecraft.world.scores.DisplaySlot
-import org.apache.logging.log4j.Level
 
 private const val scoreboardTeamCheck = "team_" // for checking valid sidebar teams
 
@@ -44,7 +42,7 @@ object GameStateManager {
                 (inWarlords2 && unformattedText == "The game starts in 1 second!")
             ) {
                 EventBus.post(WarlordsGameEvents.ResetEvent())
-                WarlordsPlusPlus.LOGGER.log(Level.DEBUG, "Posted ResetEvent")
+                WarlordsPlusPlus.LOGGER.debug("Posted ResetEvent")
             }
             CompoundEventResult.pass()
         }

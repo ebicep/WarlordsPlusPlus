@@ -18,6 +18,8 @@ object HudElementManager : Feature {
             add(HealingGivenHudElement)
             add(HealingReceivedHudElement)
             add(KDAHudElement)
+            add(WLHudElement)
+            add(StreakHudElement)
         }
         ClientTickEvent.CLIENT_POST.register {
             if (openScreen) {
@@ -27,10 +29,13 @@ object HudElementManager : Feature {
         }
         ClientGuiEvent.RENDER_HUD.register { guiGraphics, tickDelta ->
             hudElements.forEach {
-                it.renderHelper.guiGraphics = guiGraphics
-                it.renderHelper.createPose {
-                    it.renderHelper.translate(it.x.toDouble(), it.y.toDouble())
-                    it.renderHelper.render()
+                if (it.renderHelper == null) {
+                    return@register
+                }
+                it.renderHelper!!.guiGraphics = guiGraphics
+                it.renderHelper!!.createPose {
+                    it.renderHelper!!.translate(it.x.toDouble(), it.y.toDouble())
+                    it.renderHelper!!.render()
                 }
             }
         }

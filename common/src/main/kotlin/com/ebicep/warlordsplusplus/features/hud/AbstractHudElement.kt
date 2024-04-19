@@ -2,30 +2,30 @@ package com.ebicep.warlordsplusplus.features.hud
 
 import com.ebicep.warlordsplusplus.renderapi.api.RenderHelperGui
 import com.ebicep.warlordsplusplus.util.Colors
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.MutableComponent
 
+@Serializable
 abstract class AbstractHudElement(var x: Int = 0, var y: Int = 0) {
 
-    var renderHelper: RenderHelperGui
+    @Transient
+    var renderHelper: RenderHelperGui = object : RenderHelperGui() {
 
-    init {
-        this.renderHelper = object : RenderHelperGui() {
+        override fun shouldRender(): Boolean {
+            return this@AbstractHudElement.shouldRender()
+        }
 
-            override fun shouldRender(): Boolean {
-                return this@AbstractHudElement.shouldRender()
+        override fun render0() {
+            val text = getText()
+            createPose {
+                translateX(-2)
+                guiGraphics?.fill(0, 0, Minecraft.getInstance().font.width(text) + 3, 11, Colors.DEF.convertToArgb(100))
             }
-
-            override fun render0() {
-                val text = getText()
-                createPose {
-                    translateX(-2)
-                    guiGraphics?.fill(0, 0, Minecraft.getInstance().font.width(text) + 3, 11, Colors.DEF.convertToArgb(100))
-                }
-                createPose {
-                    translateY(-2)
-                    guiGraphics?.drawString(Minecraft.getInstance().font, text, 0, 0, 0, false)
-                }
+            createPose {
+                translateY(-2)
+                guiGraphics?.drawString(Minecraft.getInstance().font, text, 0, 0, 0, false)
             }
         }
     }
