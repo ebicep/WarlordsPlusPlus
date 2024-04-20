@@ -10,9 +10,9 @@ import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.minecraft.world.scores.DisplaySlot
 
-private const val scoreboardTeamCheck = "team_" // for checking valid sidebar teams
-
 object GameStateManager {
+
+    private const val SCOREBOARD_TEAM_CHECK = "team_" // for checking valid sidebar teams
 
     var inWarlords = false
     var inWarlords2 = false
@@ -60,7 +60,7 @@ object GameStateManager {
                 return@register
             }
             val sortedTeams = scoreboard.playerTeams
-                .filter { it.name.contains(scoreboardTeamCheck) }
+                .filter { it.name.contains(SCOREBOARD_TEAM_CHECK) }
                 .toList()
                 .sortedBy {
                     val name = it.name

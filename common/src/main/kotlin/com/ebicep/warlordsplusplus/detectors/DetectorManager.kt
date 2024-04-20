@@ -6,8 +6,8 @@ object DetectorManager {
 
     init {
         with(detectors) {
-            add(DamageAndHealParser)
-            add(KillAssistParser)
+            add(DamageAndHealDetector)
+            add(KillAssistDetector)
             add(GameEndDetector)
             add(HitDetector)
             add(RespawnTimerDetector)

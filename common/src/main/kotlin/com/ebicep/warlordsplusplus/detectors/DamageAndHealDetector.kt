@@ -11,12 +11,12 @@ import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import java.util.regex.Pattern
 
-const val SOMEBODY_DID = """«"""
-const val YOU_DID = """»"""
+object DamageAndHealDetector : Detector {
 
-private val numberPattern = Pattern.compile("\\s[0-9]+\\s")
+    private const val SOMEBODY_DID = """«"""
+    private const val YOU_DID = """»"""
 
-object DamageAndHealParser : Detector {
+    private val numberPattern = Pattern.compile("\\s[0-9]+\\s")
 
     init {
         ClientSystemMessageEvent.RECEIVED.register { component: Component ->
