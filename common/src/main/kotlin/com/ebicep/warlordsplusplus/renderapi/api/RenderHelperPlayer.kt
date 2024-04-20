@@ -1,6 +1,6 @@
 package com.ebicep.warlordsplusplus.renderapi.api
 
-import com.ebicep.warlordsplusplus.renderapi.RenderApi
+import com.ebicep.warlordsplusplus.renderapi.RenderHelper
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.math.Axis
 import net.minecraft.client.Minecraft
@@ -14,7 +14,7 @@ abstract class RenderHelperPlayer(
     override var guiGraphics: GuiGraphics?,
     var entity: Player,
     private val autoRotate: Boolean = true
-) : RenderApi() {
+) : RenderHelper() {
 
     override fun setupRender() {
         createPose {

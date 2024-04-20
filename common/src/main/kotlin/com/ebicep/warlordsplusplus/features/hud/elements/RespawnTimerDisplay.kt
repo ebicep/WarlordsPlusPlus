@@ -1,7 +1,8 @@
 package com.ebicep.warlordsplusplus.features.hud.elements
 
+import com.ebicep.warlordsplusplus.config.Config
+import com.ebicep.warlordsplusplus.config.HudElementValues
 import com.ebicep.warlordsplusplus.detectors.RespawnTimerDetector
-import com.ebicep.warlordsplusplus.features.hud.AbstractHudElement
 import com.ebicep.warlordsplusplus.game.GameModes
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.util.ComponentBuilder
@@ -9,10 +10,14 @@ import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.MutableComponent
 
-object RespawnTimerDisplay : AbstractHudElement(0, 0) {
+data object RespawnTimerDisplay : AbstractHudElement() {
 
     override fun shouldRender(): Boolean {
-        return true
+        return GameStateManager.inGame
+    }
+
+    override fun getConfigValues(): HudElementValues {
+        return Config.values.hudElements.respawnTimer
     }
 
     override fun getComponent(): MutableComponent? {

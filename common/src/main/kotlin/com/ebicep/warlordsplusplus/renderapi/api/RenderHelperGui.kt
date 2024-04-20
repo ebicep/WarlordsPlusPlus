@@ -1,12 +1,12 @@
 package com.ebicep.warlordsplusplus.renderapi.api
 
-import com.ebicep.warlordsplusplus.renderapi.RenderApi
+import com.ebicep.warlordsplusplus.renderapi.RenderHelper
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import net.minecraft.client.gui.GuiGraphics
 
 @Serializable
-abstract class RenderHelperGui(@Transient override var guiGraphics: GuiGraphics? = null) : RenderApi() {
+abstract class RenderHelperGui(@Transient override var guiGraphics: GuiGraphics? = null) : RenderHelper() {
 
     override fun setupRender() {
         createPose {

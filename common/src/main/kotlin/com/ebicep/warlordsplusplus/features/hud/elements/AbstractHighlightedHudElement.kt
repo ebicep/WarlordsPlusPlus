@@ -1,10 +1,9 @@
 package com.ebicep.warlordsplusplus.features.hud.elements
 
-import com.ebicep.warlordsplusplus.features.hud.AbstractHudElement
 import com.ebicep.warlordsplusplus.util.Colors
 import net.minecraft.client.Minecraft
 
-abstract class AbstractHighlightedHudElement(x: Int, y: Int) : AbstractHudElement(x, y) {
+sealed class AbstractHighlightedHudElement : AbstractHudElement() {
 
     override fun render0() {
         val text = getComponent() ?: return

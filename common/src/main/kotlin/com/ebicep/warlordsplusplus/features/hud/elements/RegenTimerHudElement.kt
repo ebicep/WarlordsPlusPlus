@@ -1,14 +1,17 @@
 package com.ebicep.warlordsplusplus.features.hud.elements
 
 import com.ebicep.chatplus.events.EventBus
+import com.ebicep.warlordsplusplus.config.Config
+import com.ebicep.warlordsplusplus.config.HudElementValues
 import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.events.WarlordsPlayerEvents
+import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.util.ComponentBuilder
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.MutableComponent
 
-object RegenTimerHudElement : AbstractHighlightedHudElement(0, 0) {
+object RegenTimerHudElement : AbstractHighlightedHudElement() {
 
     private var regenTimer = 0
 
@@ -24,7 +27,11 @@ object RegenTimerHudElement : AbstractHighlightedHudElement(0, 0) {
     }
 
     override fun shouldRender(): Boolean {
-        return true
+        return GameStateManager.inGame
+    }
+
+    override fun getConfigValues(): HudElementValues {
+        return Config.values.hudElements.regenTimer
     }
 
     override fun getComponent(): MutableComponent? {

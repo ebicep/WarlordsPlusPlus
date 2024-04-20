@@ -1,6 +1,6 @@
 package com.ebicep.warlordsplusplus.renderapi.api
 
-import com.ebicep.warlordsplusplus.renderapi.RenderApi
+import com.ebicep.warlordsplusplus.renderapi.RenderHelper
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.math.Axis
 import net.minecraft.client.Minecraft
@@ -9,7 +9,7 @@ import net.minecraft.util.Mth
 import net.minecraft.world.phys.Vec3
 
 
-abstract class RenderHelperWorld(override var guiGraphics: GuiGraphics?) : RenderApi() {
+abstract class RenderHelperWorld(override var guiGraphics: GuiGraphics?) : RenderHelper() {
 
     override fun setupRender() {
         createPose {

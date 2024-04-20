@@ -1,6 +1,7 @@
 package com.ebicep.warlordsplusplus.events.fabric
 
 import com.ebicep.chatplus.events.EventBus
+import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.config.ConfigScreen
 import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
 import com.ebicep.warlordsplusplus.features.hud.HudElementManager
@@ -32,6 +33,12 @@ object ClientCommandRegistration {
                     .then(ClientCommandManager.literal("edit")
                         .executes {
                             HudElementManager.openEditScreen()
+                            Command.SINGLE_SUCCESS
+                        }
+                    )
+                    .then(ClientCommandManager.literal("save")
+                        .executes {
+                            Config.save()
                             Command.SINGLE_SUCCESS
                         }
                     )

@@ -1,12 +1,15 @@
 package com.ebicep.warlordsplusplus.features.hud.elements
 
 import com.ebicep.chatplus.events.EventBus
+import com.ebicep.warlordsplusplus.config.Config
+import com.ebicep.warlordsplusplus.config.HudElementValues
 import com.ebicep.warlordsplusplus.events.WarlordsGameEvents
+import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.util.ComponentBuilder
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.MutableComponent
 
-object StreakHudElement : AbstractHighlightedHudElement(0, 0) {
+data object StreakHudElement : AbstractHighlightedHudElement() {
 
     private var streak = 0
 
@@ -28,7 +31,11 @@ object StreakHudElement : AbstractHighlightedHudElement(0, 0) {
     }
 
     override fun shouldRender(): Boolean {
-        return true
+        return GameStateManager.notInGame
+    }
+
+    override fun getConfigValues(): HudElementValues {
+        return Config.values.hudElements.streak
     }
 
     override fun getComponent(): MutableComponent {
