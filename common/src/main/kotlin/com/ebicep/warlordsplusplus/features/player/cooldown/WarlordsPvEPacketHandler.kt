@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.features.render.cooldown
+package com.ebicep.warlordsplusplus.features.player.cooldown
 
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.features.Feature

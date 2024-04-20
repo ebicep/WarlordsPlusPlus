@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.renderapi
+package com.ebicep.warlordsplusplus.render
 
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.util.Colors
@@ -6,35 +6,22 @@ import com.ebicep.warlordsplusplus.util.ImageRegistry
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
 import com.mojang.math.Axis
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
-import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.network.chat.Component
-import net.minecraft.world.phys.Vec3
 import org.apache.logging.log4j.Level
 import org.joml.Quaternionf
+import org.lwjgl.opengl.GL11
 
-@Serializable
-abstract class RenderHelper : Render {
+sealed class RenderHelper : Render {
 
-
-    @Transient
-    abstract var guiGraphics: GuiGraphics?
-
-    @Transient
-    val poseStack: PoseStack
-        get() = guiGraphics!!.pose()
-
-    @Transient
-    val bufferSource: MultiBufferSource.BufferSource
-        get() = guiGraphics!!.bufferSource()
+    abstract var poseStack: PoseStack?
+    abstract var bufferSource: MultiBufferSource.BufferSource?
 
     companion object {
         val tesselator: Tesselator
@@ -52,14 +39,8 @@ abstract class RenderHelper : Render {
             get() = mc.font
     }
 
-    protected fun translateToPos(x: Double, y: Double, z: Double) {
-        // Translate to world origin
-        val offset: Vec3 = Minecraft.getInstance().gameRenderer.mainCamera.position
-        poseStack.translate(x - offset.x, y - offset.y, z - offset.z)
-    }
-
     fun scaleForWorldRendering() =
-        poseStack.scale(-0.025f, -0.025f, -0.025f)
+        poseStack!!.scale(-0.025f, -0.025f, -0.025f)
 
     fun renderImage(
         width: Float,
@@ -76,7 +57,7 @@ abstract class RenderHelper : Render {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.setShaderTexture(0, resourceLocation)
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX)
-        val pPose = poseStack.last().pose()
+        val pPose = poseStack!!.last().pose()
         if (xCentered) {
             val w2 = width / 2
             bufferBuilder
@@ -133,8 +114,8 @@ abstract class RenderHelper : Render {
 //        RenderSystem.enableDepthTest()
 //        RenderSystem.setShader { GameRenderer.getPositionColorShader() }
 //        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR)
-        val pPose = poseStack.last().pose()
-        val vertexConsumer = bufferSource.getBuffer(RenderType.gui())
+        val pPose = poseStack!!.last().pose()
+        val vertexConsumer = bufferSource!!.getBuffer(RenderType.gui())
         vertexConsumer
             .vertex(pPose, 0f, 0f, z)
             .color(color, alpha)
@@ -154,7 +135,7 @@ abstract class RenderHelper : Render {
 //        tesselator.end()
 //        RenderSystem.disableDepthTest()
         RenderSystem.disableDepthTest()
-        bufferSource.endBatch()
+        bufferSource!!.endBatch()
         RenderSystem.enableDepthTest()
     }
 
@@ -169,9 +150,9 @@ abstract class RenderHelper : Render {
     fun renderRectXCentered(width: Float, height: Float, color: Colors, alpha: Int = 255, z: Float = 0f) {
 //        RenderSystem.enableDepthTest()
 //        RenderSystem.setShader { GameRenderer.getPositionColorShader() }
-        val pPose = poseStack.last().pose()
+        val pPose = poseStack!!.last().pose()
         val w2 = width / 2
-        val vertexConsumer = bufferSource.getBuffer(RenderType.gui())
+        val vertexConsumer = bufferSource!!.getBuffer(RenderType.gui())
         vertexConsumer
             .vertex(pPose, -w2, 0f, z)
             .color(color, alpha)
@@ -189,7 +170,7 @@ abstract class RenderHelper : Render {
             .color(color, alpha)
             .endVertex()
         RenderSystem.disableDepthTest()
-        bufferSource.endBatch()
+        bufferSource!!.endBatch()
         RenderSystem.enableDepthTest()
     }
 
@@ -204,8 +185,9 @@ abstract class RenderHelper : Render {
 
     fun String.draw(seeThruBlocks: Boolean = false, shadow: Boolean = false, pX: Float = 0f, color: Colors = Colors.WHITE) {
         if (seeThruBlocks) {
-            RenderSystem.disableDepthTest()
-            RenderSystem.depthMask(true)
+            RenderSystem.depthFunc(GL11.GL_ALWAYS)
+        } else {
+            RenderSystem.depthFunc(GL11.GL_LEQUAL)
         }
         font.drawInBatch(
             this,
@@ -213,16 +195,14 @@ abstract class RenderHelper : Render {
             0f,
             color.FULL,
             shadow,
-            poseStack.last().pose(),
-            bufferSource,
-            Font.DisplayMode.NORMAL,
+            poseStack!!.last().pose(),
+            bufferSource!!,
+            Font.DisplayMode.SEE_THROUGH,
             0,
             LightTexture.FULL_BRIGHT
         )
-        if (seeThruBlocks) {
-            RenderSystem.enableDepthTest()
-            RenderSystem.depthMask(false)
-        }
+        bufferSource!!.endBatch()
+        RenderSystem.depthFunc(GL11.GL_LEQUAL)
     }
 
     fun Component.draw(seeThruBlocks: Boolean = false, shadow: Boolean = false, pX: Float = 0f, color: Colors = Colors.WHITE) {
@@ -236,8 +216,8 @@ abstract class RenderHelper : Render {
             0f,
             color.FULL,
             shadow,
-            poseStack.last().pose(),
-            bufferSource,
+            poseStack!!.last().pose(),
+            bufferSource!!,
             Font.DisplayMode.NORMAL,
             0,
             LightTexture.FULL_BRIGHT
@@ -300,22 +280,22 @@ abstract class RenderHelper : Render {
     }
 
     inline fun createPose(fn: () -> Unit) {
-        poseStack.pushPose()
+        poseStack!!.pushPose()
         fn()
-        poseStack.popPose()
+        poseStack!!.popPose()
     }
 
     fun rotate(angle: Float, x: Float, y: Float, z: Float) =
-        poseStack.mulPose(Quaternionf().rotateAxis(Math.toRadians(angle.toDouble()).toFloat(), x, y, z)) //TODO CHECK
+        poseStack!!.mulPose(Quaternionf().rotateAxis(Math.toRadians(angle.toDouble()).toFloat(), x, y, z)) //TODO CHECK
 
     fun rotateX(angle: Float) =
-        poseStack.mulPose(Axis.XP.rotationDegrees(angle))
+        poseStack!!.mulPose(Axis.XP.rotationDegrees(angle))
 
     fun rotateY(angle: Float) =
-        poseStack.mulPose(Axis.YP.rotationDegrees(angle))
+        poseStack!!.mulPose(Axis.YP.rotationDegrees(angle))
 
     fun rotateZ(angle: Float) =
-        poseStack.mulPose(Axis.ZP.rotationDegrees(angle))
+        poseStack!!.mulPose(Axis.ZP.rotationDegrees(angle))
 
     //Translate
 
@@ -323,7 +303,7 @@ abstract class RenderHelper : Render {
         translate(x.toDouble(), y.toDouble(), z.toDouble())
 
     fun translate(x: Double, y: Double = 0.0, z: Double = 0.0) =
-        poseStack.translate(x, y, z)
+        poseStack!!.translate(x, y, z)
 
     inline fun translate(x: Int, y: Int = 0, z: Int = 0, fn: () -> Unit) {
         translate(x, y, z)
@@ -403,7 +383,10 @@ abstract class RenderHelper : Render {
     }
 
     fun scale(amount: Float) =
-        poseStack.scale(amount, amount, -amount)
+        scale(amount, amount, amount)
+
+    fun scale(x: Float, y: Float, z: Float) =
+        poseStack!!.scale(x, y, z)
 
     fun scale(amount: Double) =
         scale(amount.toFloat())

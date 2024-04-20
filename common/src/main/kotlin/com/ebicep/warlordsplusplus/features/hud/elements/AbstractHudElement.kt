@@ -1,11 +1,11 @@
 package com.ebicep.warlordsplusplus.features.hud.elements
 
 import com.ebicep.warlordsplusplus.config.HudElementValues
-import com.ebicep.warlordsplusplus.renderapi.api.RenderHelperGui
+import com.ebicep.warlordsplusplus.render.RenderHelperHud
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.MutableComponent
 
-sealed class AbstractHudElement : RenderHelperGui() {
+sealed class AbstractHudElement : RenderHelperHud() {
 
     var enabled: Boolean
         get() = getConfigValues().enabled

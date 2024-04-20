@@ -1,17 +1,18 @@
-package com.ebicep.warlordsplusplus.renderapi.api
+package com.ebicep.warlordsplusplus.render
 
-import com.ebicep.warlordsplusplus.renderapi.RenderHelper
 import com.mojang.blaze3d.systems.RenderSystem
+import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 import org.joml.Quaternionf
 
 abstract class RenderHelperPlayer(
-    override var guiGraphics: GuiGraphics?,
+    override var poseStack: PoseStack?,
+    override var bufferSource: MultiBufferSource.BufferSource?,
     var entity: Player,
     private val autoRotate: Boolean = true
 ) : RenderHelper() {
@@ -21,7 +22,7 @@ abstract class RenderHelperPlayer(
             translate(0.0, entity.nameTagOffsetY.toDouble(), 0.0)
             if (autoRotate) {
                 val camera = Minecraft.getInstance().gameRenderer.mainCamera
-                poseStack.mulPose(
+                poseStack!!.mulPose(
                     Quaternionf()
                         .rotationX(-0.017453292F * camera.xRot)
                         .rotationY(-0.017453292F * camera.yRot)
@@ -41,13 +42,13 @@ abstract class RenderHelperPlayer(
     protected fun autoRotate(x: Double, z: Double, partialTick: Float) {
         val eye: Vec3 = Minecraft.getInstance().player!!.getEyePosition(partialTick)
         val rotY = Mth.atan2(x - eye.x, z - eye.z)
-        poseStack.mulPose(Axis.YP.rotation(rotY.toFloat()))
+        poseStack!!.mulPose(Axis.YP.rotation(rotY.toFloat()))
     }
 
     protected fun autoRotateX(x: Double, partialTick: Float) {
         val eye: Vec3 = Minecraft.getInstance().player!!.getEyePosition(partialTick)
         val rotY = Mth.atan2(x - eye.x, 1.0)
-        poseStack.mulPose(Axis.YP.rotation(rotY.toFloat()))
+        poseStack!!.mulPose(Axis.YP.rotation(rotY.toFloat()))
     }
 
 

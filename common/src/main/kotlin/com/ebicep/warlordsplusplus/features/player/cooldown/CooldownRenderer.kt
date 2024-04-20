@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.features.render.cooldown
+package com.ebicep.warlordsplusplus.features.player.cooldown
 
 import com.ebicep.chatplus.events.EventBus
 import com.ebicep.warlordsplusplus.config.Config
@@ -6,11 +6,12 @@ import com.ebicep.warlordsplusplus.events.PlayerRenderEvent
 import com.ebicep.warlordsplusplus.features.Feature
 import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
-import com.ebicep.warlordsplusplus.renderapi.api.RenderHelperPlayer
+import com.ebicep.warlordsplusplus.render.RenderHelperPlayer
 import com.ebicep.warlordsplusplus.util.Colors
 import com.ebicep.warlordsplusplus.util.ImageRegistry
+import com.mojang.blaze3d.vertex.PoseStack
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import java.time.Instant
@@ -20,13 +21,19 @@ object CooldownRenderer : Feature {
 
     init {
         EventBus.register<PlayerRenderEvent> {
-            Renderer(GuiGraphics(Minecraft.getInstance(), it.bufferSource), it.entity).render()
+            val poseStack = it.poseStack
+            val bufferSource = it.bufferSource
+            Renderer(poseStack, bufferSource, it.entity).render()
             InteractionResult.PASS
         }
     }
 
 
-    class Renderer(guiGraphics: GuiGraphics, entity: Player) : RenderHelperPlayer(guiGraphics, entity) {
+    class Renderer(
+        override var poseStack: PoseStack?,
+        override var bufferSource: MultiBufferSource.BufferSource?,
+        entity: Player
+    ) : RenderHelperPlayer(poseStack, bufferSource, entity) {
 
         override fun shouldRender(): Boolean {
             return Config.values.renderPlayerInfo.value &&

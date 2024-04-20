@@ -2,8 +2,9 @@ package com.ebicep.warlordsplusplus.features
 
 import com.ebicep.warlordsplusplus.features.chat.PrintStatsAfterGame
 import com.ebicep.warlordsplusplus.features.hud.HudElementManager
-import com.ebicep.warlordsplusplus.features.render.cooldown.WarlordsPvEPacketHandler
+import com.ebicep.warlordsplusplus.features.player.cooldown.WarlordsPvEPacketHandler
 import com.ebicep.warlordsplusplus.features.scoreboard.WarlordsPlusPlusScoreBoard
+import com.ebicep.warlordsplusplus.features.world.WorldRenderManager
 
 object FeatureManager {
 
@@ -12,6 +13,7 @@ object FeatureManager {
     init {
         with(features) {
             add(HudElementManager)
+            add(WorldRenderManager)
             add(PrintStatsAfterGame)
             add(WarlordsPlusPlusScoreBoard)
             add(WarlordsPvEPacketHandler)

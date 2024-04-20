@@ -8,7 +8,7 @@ import com.ebicep.warlordsplusplus.game.GameStateManager
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayer
 import com.ebicep.warlordsplusplus.game.OtherWarlordsPlayers
 import com.ebicep.warlordsplusplus.game.WarlordsPlayer
-import com.ebicep.warlordsplusplus.renderapi.api.RenderHelperGui
+import com.ebicep.warlordsplusplus.render.RenderHelperHud
 import com.ebicep.warlordsplusplus.util.Colors
 import com.ebicep.warlordsplusplus.util.Team
 import net.minecraft.ChatFormatting
@@ -45,7 +45,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
         }
     }
 
-    class Renderer(guiGraphics: GuiGraphics) : RenderHelperGui(guiGraphics) {
+    class Renderer(guiGraphics: GuiGraphics) : RenderHelperHud(guiGraphics) {
         override fun shouldRender(): Boolean {
             val scoreObjective: Objective? = mc.level!!.scoreboard.getDisplayObjective(DisplaySlot.LIST)
             val handler: ClientPacketListener = mc.player!!.connection
@@ -91,7 +91,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
             val yStart = 25
 
             GameStateManager.currentGameMode.getScale()?.let { scale ->
-                poseStack.scale(scale.toFloat(), scale.toFloat(), 1f)
+                poseStack!!.scale(scale.toFloat(), scale.toFloat(), 1f)
                 xStart = (xStart / scale).toInt()
             }
 

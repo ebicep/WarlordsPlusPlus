@@ -1,4 +1,4 @@
-package com.ebicep.warlordsplusplus.renderapi
+package com.ebicep.warlordsplusplus.render
 
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
 import com.ebicep.warlordsplusplus.features.hud.HudElementScreen
