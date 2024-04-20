@@ -1,5 +1,6 @@
 package com.ebicep.warlordsplusplus.util
 
+import com.ebicep.warlordsplusplus.game.GameStateManager
 import net.minecraft.client.Minecraft
 import net.minecraft.world.scores.PlayerTeam
 
@@ -16,30 +17,30 @@ object ScoreboardUtils {
     /**
      * @param at represents sidebar number starting from bottom = 1 (basically read off sidebar)
      */
-    fun containsAt(teams: List<PlayerTeam>, text: String, at: Int): Boolean {
-        getAt(teams, at)?.let {
+    fun containsAt(text: String, at: Int): Boolean {
+        getAt(at)?.let {
             return it.contains(text)
         }
         return false
     }
 
-    fun getAt(teams: List<PlayerTeam>, at: Int): String? {
+    fun getAt(at: Int): String? {
         val relativeLine = at - 1
         if (relativeLine < 0) {
             return null
         }
-        if (relativeLine >= teams.size) {
+        if (relativeLine >= GameStateManager.sortedTeams.size) {
             return null
         }
-        return getUnformattedText(teams[relativeLine])
+        return getUnformattedText(GameStateManager.sortedTeams[relativeLine])
     }
 
-    fun getContaining(teams: List<PlayerTeam>, containing: String): String? {
-        return teams.firstOrNull { getUnformattedText(it).contains(containing) }?.let { getUnformattedText(it) }
+    fun getContaining(containing: String): String? {
+        return GameStateManager.sortedTeams.firstOrNull { getUnformattedText(it).contains(containing) }?.let { getUnformattedText(it) }
     }
 
-    fun containsAtAnywhere(teams: List<PlayerTeam>, text: String): Boolean {
-        return teams.any { getUnformattedText(it).contains(text) }
+    fun containsAtAnywhere(text: String): Boolean {
+        return GameStateManager.sortedTeams.any { getUnformattedText(it).contains(text) }
     }
 
 }

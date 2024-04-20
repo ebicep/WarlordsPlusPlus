@@ -88,6 +88,11 @@ data class HudElementVariables(
     var healingReceived: HudElementValues = HudElementValues(10, 43),
     var regenTimer: HudElementValues = HudElementValues(0, 44),
 
+    var bluePoints: HudElementValues = HudElementValues(0, 0),
+    var redPoints: HudElementValues = HudElementValues(0, 0),
+    var blueKills: HudElementValues = HudElementValues(0, 0),
+    var redKills: HudElementValues = HudElementValues(0, 0),
+
     var kda: HudElementValues = HudElementValues(10, 10),
     var wl: HudElementValues = HudElementValues(10, 21),
     var streak: HudElementValues = HudElementValues(10, 32),

@@ -9,6 +9,7 @@ import dev.architectury.event.events.client.ClientTickEvent
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.minecraft.world.scores.DisplaySlot
+import net.minecraft.world.scores.PlayerTeam
 
 object GameStateManager {
 
@@ -30,6 +31,8 @@ object GameStateManager {
         get() = time?.first ?: 0
     val second: Int
         get() = time?.second ?: 0
+
+    var sortedTeams: List<PlayerTeam> = emptyList()
 
     init {
         EventBus.register<WarlordsGameEvents.ResetEvent> {
@@ -59,17 +62,17 @@ object GameStateManager {
                 currentGameMode = GameModes.NONE
                 return@register
             }
-            val sortedTeams = scoreboard.playerTeams
+            sortedTeams = scoreboard.playerTeams
                 .filter { it.name.contains(SCOREBOARD_TEAM_CHECK) }
                 .toList()
                 .sortedBy {
                     val name = it.name
                     name.substring(name.indexOf("_") + 1).toInt()
                 }
-            currentGameMode = GameModes.values().first { it.isCurrent(sortedTeams) }
+            currentGameMode = GameModes.values().first { it.isCurrent() }
             try {
                 val oldTime = time
-                time = currentGameMode.getTime(sortedTeams)
+                time = currentGameMode.getTime()
                 if (time == null) {
                     return@register
                 }

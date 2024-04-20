@@ -12,6 +12,9 @@ object DetectorManager {
             add(HitDetector)
             add(RespawnTimerDetector)
             add(WinLossDetector)
+            add(GamePointsDetector)
+            add(TotalKillsDetector)
+            add(FlagStateDetector)
         }
 
     }

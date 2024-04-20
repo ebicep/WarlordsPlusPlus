@@ -21,6 +21,10 @@ object HudElementManager : Feature {
             add(WLHudElement)
             add(StreakHudElement)
             add(RegenTimerHudElement)
+            add(BluePointsHudElement)
+            add(RedPointsHudElement)
+            add(BlueKillsHudElement)
+            add(RedKillsHudElement)
 
             add(RespawnTimerDisplay)
         }

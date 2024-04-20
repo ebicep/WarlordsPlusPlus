@@ -4,6 +4,7 @@ import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.config.ConfigScreen
 import com.ebicep.warlordsplusplus.detectors.DetectorManager
 import com.ebicep.warlordsplusplus.features.FeatureManager
+import com.ebicep.warlordsplusplus.game.GameStateManager
 import dev.architectury.event.events.client.ClientTickEvent
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -15,6 +16,7 @@ object WarlordsPlusPlus {
     val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 
     fun init() {
+        GameStateManager
         DetectorManager
         FeatureManager
 

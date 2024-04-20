@@ -3,16 +3,15 @@ package com.ebicep.warlordsplusplus.game
 import com.ebicep.warlordsplusplus.config.Config
 import com.ebicep.warlordsplusplus.detectors.RespawnTimerDetector
 import com.ebicep.warlordsplusplus.util.ScoreboardUtils
-import net.minecraft.world.scores.PlayerTeam
 
 enum class GameModes {
     CTF {
-        override fun isCurrent(sidebar: List<PlayerTeam>): Boolean {
-            return ScoreboardUtils.containsAt(sidebar, "RED Flag", 8)
+        override fun isCurrent(): Boolean {
+            return ScoreboardUtils.containsAt("RED Flag", 8)
         }
 
-        override fun getTime(sidebar: List<PlayerTeam>): Pair<Int, Int>? {
-            return getTimePvP(sidebar, 10)
+        override fun getTime(): Pair<Int, Int>? {
+            return getTimePvP(10)
         }
 
         override fun getCurrentRespawn(): Int {
@@ -24,12 +23,12 @@ enum class GameModes {
         }
     },
     TDM {
-        override fun isCurrent(sidebar: List<PlayerTeam>): Boolean {
-            return ScoreboardUtils.containsAt(sidebar, "BLU", 10)
+        override fun isCurrent(): Boolean {
+            return ScoreboardUtils.containsAt("BLU", 10)
         }
 
-        override fun getTime(sidebar: List<PlayerTeam>): Pair<Int, Int>? {
-            return getTimePvP(sidebar, 7)
+        override fun getTime(): Pair<Int, Int>? {
+            return getTimePvP(7)
         }
 
         override fun getCurrentRespawn(): Int {
@@ -41,12 +40,12 @@ enum class GameModes {
         }
     },
     DOM {
-        override fun isCurrent(sidebar: List<PlayerTeam>): Boolean {
-            return ScoreboardUtils.containsAt(sidebar, "/2000", 12)
+        override fun isCurrent(): Boolean {
+            return ScoreboardUtils.containsAt("/2000", 12)
         }
 
-        override fun getTime(sidebar: List<PlayerTeam>): Pair<Int, Int>? {
-            return getTimePvP(sidebar, 10)
+        override fun getTime(): Pair<Int, Int>? {
+            return getTimePvP(10)
         }
 
         override fun getCurrentRespawn(): Int {
@@ -60,39 +59,39 @@ enum class GameModes {
 
     //INTERCEPTION,
     WAVE_DEFENSE {
-        override fun isCurrent(sidebar: List<PlayerTeam>): Boolean {
-            return ScoreboardUtils.containsAtAnywhere(sidebar, "Wave")
+        override fun isCurrent(): Boolean {
+            return ScoreboardUtils.containsAtAnywhere("Wave")
         }
 
-        override fun getTime(sidebar: List<PlayerTeam>): Pair<Int, Int>? {
-            return getTimePvE(sidebar, 4, 6)
+        override fun getTime(): Pair<Int, Int>? {
+            return getTimePvE(4, 6)
         }
 
     },
     ONSLAUGHT {
-        override fun isCurrent(sidebar: List<PlayerTeam>): Boolean {
-            return ScoreboardUtils.containsAtAnywhere(sidebar, "Soul Energy")
+        override fun isCurrent(): Boolean {
+            return ScoreboardUtils.containsAtAnywhere("Soul Energy")
         }
 
-        override fun getTime(sidebar: List<PlayerTeam>): Pair<Int, Int>? {
-            return getTimePvE(sidebar, 4, 6)
+        override fun getTime(): Pair<Int, Int>? {
+            return getTimePvE(4, 6)
         }
     },
     NONE {
-        override fun isCurrent(sidebar: List<PlayerTeam>): Boolean {
+        override fun isCurrent(): Boolean {
             return true // true in case no other gamemode is found
         }
 
-        override fun getTime(sidebar: List<PlayerTeam>): Pair<Int, Int>? {
+        override fun getTime(): Pair<Int, Int>? {
             return null
         }
     },
 
     ;
 
-    abstract fun isCurrent(sidebar: List<PlayerTeam>): Boolean
+    abstract fun isCurrent(): Boolean
 
-    abstract fun getTime(sidebar: List<PlayerTeam>): Pair<Int, Int>?
+    abstract fun getTime(): Pair<Int, Int>?
 
     open fun getCurrentRespawn(): Int {
         return -1
@@ -109,8 +108,8 @@ enum class GameModes {
         }
     }
 
-    fun getTimePvP(sidebar: List<PlayerTeam>, index: Int): Pair<Int, Int>? {
-        return ScoreboardUtils.getAt(sidebar, index)?.let {
+    fun getTimePvP(index: Int): Pair<Int, Int>? {
+        return ScoreboardUtils.getAt(index)?.let {
             val timeString: String =
                 if (it.contains("Wins")) it.substring(13)
                 else it.substring(11)
@@ -122,8 +121,8 @@ enum class GameModes {
         }
     }
 
-    fun getTimePvE(sidebar: List<PlayerTeam>, index: Int, timeStringIndex: Int): Pair<Int, Int>? {
-        return ScoreboardUtils.getAt(sidebar, index)?.let {
+    fun getTimePvE(index: Int, timeStringIndex: Int): Pair<Int, Int>? {
+        return ScoreboardUtils.getAt(index)?.let {
             val timeString: String = it.substring(timeStringIndex)
             val colonPosition = timeString.indexOf(":")
             return Pair(
