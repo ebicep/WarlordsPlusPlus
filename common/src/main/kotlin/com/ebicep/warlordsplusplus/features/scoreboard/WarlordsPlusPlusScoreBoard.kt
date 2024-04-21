@@ -174,14 +174,18 @@ object WarlordsPlusPlusScoreBoard : Feature {
                 val hasMostDeaths = if (p.team == Team.BLUE) p.deaths == mostDeathsBlue else p.deaths == mostDeathsRed
                 val hasMostKills = if (p.team == Team.BLUE) p.kills == mostKillsBlue else p.kills == mostKillsRed
 
+                translateZ(5.0)
                 if (showOutline) {
+                    // left / top bar
                     translateY(-2) {
                         renderRect(unscaledWidth, 1.25, Colors.DEF)
                         renderRect(1.25, 11.0, Colors.DEF)
                     }
+                    // right bar
                     translate(unscaledWidth - 1.25, -2.0) {
                         renderRect(1.25, 11.0, Colors.DEF)
                     }
+                    // bottom bar
                     translateY(8.75) {
                         renderRect(unscaledWidth, 1.25, Colors.DEF)
                     }
@@ -215,8 +219,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
                                     else p.team.color
                                 ).withStrikethrough(p.left)
                             }
-                        )
-                        .draw()
+                        ).draw()
                     translateX(xKills)
                     Component.literal(p.kills.toString())
                         .withStyle {
@@ -269,7 +272,6 @@ object WarlordsPlusPlusScoreBoard : Feature {
                 createPose {
                     renderRect(unscaledWidth, 10.75 * teamBlue.size + 1, Colors.DEF, 100)
                     translateY(-2)
-                    translateZ(-20)
 //                    translateY(-20) {
 //                        guiGraphics.fill(10, 40, 20, 60, Colors.DEF.convertToArgb(100))
 //                    }
@@ -279,20 +281,17 @@ object WarlordsPlusPlusScoreBoard : Feature {
                 createPose {
                     renderRect(unscaledWidth, 10.75 * teamRed.size + 1, Colors.DEF, 100)
                     translateY(-2)
-                    translateZ(-20)
                     teamRed.forEachIndexed(::renderLine)
                 }
             } else {
                 translateY(-14)
                 renderRect(unscaledWidth, 10.75 * teamBlue.size + 1, Colors.DEF, 100)
                 translateY(-2)
-                translateZ(-20)
                 teamBlue.forEachIndexed(::renderLine)
 
                 translateY(-1)
                 renderRect(unscaledWidth, 10.75 * teamRed.size + 1, Colors.DEF, 100)
                 translateY(-2)
-                translateZ(-20)
                 teamRed.forEachIndexed(::renderLine)
             }
         }
