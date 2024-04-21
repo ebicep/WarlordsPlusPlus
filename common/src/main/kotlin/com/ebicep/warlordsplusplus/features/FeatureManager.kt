@@ -17,6 +17,7 @@ object FeatureManager {
             add(PrintStatsAfterGame)
             add(WarlordsPlusPlusScoreBoard)
             add(ShowEnergyOnHorse)
+            add(RenderVignette)
 
 
             add(WarlordsPvEPacketHandler)
