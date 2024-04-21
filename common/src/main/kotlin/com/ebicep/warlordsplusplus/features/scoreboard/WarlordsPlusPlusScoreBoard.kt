@@ -39,8 +39,12 @@ object WarlordsPlusPlusScoreBoard : Feature {
     init {
         EventBus.register<TabListRenderEvent> {
             val guiGraphics = it.guiGraphics
-            if (Renderer(guiGraphics).render()) {
-                it.cancel = true
+            try {
+                if (Renderer(guiGraphics).render()) {
+                    it.cancel = true
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
@@ -111,6 +115,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
             fun renderHeader() {
                 translateY(-3)
                 translateX(xLevel + xName)
+                translateZ(10)
                 "Name".draw()
                 if (!showDoneAndReceived && !showDiedToYouStoleKill) {
                     translateX(xKills)
@@ -151,13 +156,11 @@ object WarlordsPlusPlusScoreBoard : Feature {
                 }
                 if (splitScoreBoard) {
                     createPose {
-                        createPose {
-                            scale(guiScale)
-                            translateX(unscaledWidth + spaceBetweenSplit)
-                            renderRect(unscaledWidth, 13.0, Colors.DEF)
-                            translateZ(-2)
-                            renderHeader()
-                        }
+                        scale(guiScale)
+                        translateX(unscaledWidth + spaceBetweenSplit)
+                        renderRect(unscaledWidth, 13.0, Colors.DEF)
+                        translateZ(-2)
+                        renderHeader()
                     }
                 }
             } else {
@@ -191,7 +194,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
                 }
 
                 createPose {
-                    translate(xLevel, .5, -2.0)
+                    translate(xLevel, .5, 20.0)
                     Component.empty()
                         .append(Component.literal(p.warlordClass.shortName)
                             .withStyle { it.withColor(p.levelColor) }

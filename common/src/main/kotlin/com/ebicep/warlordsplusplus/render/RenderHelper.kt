@@ -207,8 +207,9 @@ sealed class RenderHelper : Render {
 
     fun Component.draw(seeThruBlocks: Boolean = false, shadow: Boolean = false, pX: Float = 0f, color: Colors = Colors.WHITE) {
         if (seeThruBlocks) {
-            RenderSystem.disableDepthTest()
-            RenderSystem.depthMask(true)
+            RenderSystem.depthFunc(GL11.GL_ALWAYS)
+        } else {
+            RenderSystem.depthFunc(GL11.GL_LEQUAL)
         }
         font.drawInBatch(
             this,
@@ -218,14 +219,12 @@ sealed class RenderHelper : Render {
             shadow,
             poseStack!!.last().pose(),
             bufferSource!!,
-            Font.DisplayMode.NORMAL,
+            Font.DisplayMode.SEE_THROUGH,
             0,
             LightTexture.FULL_BRIGHT
         )
-        if (seeThruBlocks) {
-            RenderSystem.enableDepthTest()
-            RenderSystem.depthMask(false)
-        }
+        bufferSource!!.endBatch()
+        RenderSystem.depthFunc(GL11.GL_LEQUAL)
     }
 
     fun String.drawLeft(seeThruBlocks: Boolean = false, shadow: Boolean = false, color: Colors = Colors.WHITE) {
