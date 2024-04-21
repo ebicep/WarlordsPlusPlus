@@ -21,17 +21,17 @@ import net.minecraft.world.scores.Objective
 object WarlordsPlusPlusScoreBoard : Feature {
 
     private val showNewScoreboard: Boolean
-        get() = Config.values.scoreboardEnabled.value
+        get() = Config.values.scoreboardEnabled
     private val showTopHeader: Boolean
-        get() = Config.values.scoreboardShowTopHeader.value
+        get() = Config.values.scoreboardShowTopHeader
     private val showOutline: Boolean
-        get() = Config.values.scoreboardShowOutline.value
+        get() = Config.values.scoreboardShowOutline
     private val showDiedToYouStoleKill: Boolean
-        get() = Config.values.scoreboardShowDiedToYouStoleKill.value
+        get() = Config.values.scoreboardShowDiedToYouStoleKill
     private val showDoneAndReceived: Boolean
-        get() = Config.values.scoreboardShowDoneAndReceived.value
+        get() = Config.values.scoreboardShowDoneAndReceived
     private val splitScoreBoard: Boolean
-        get() = Config.values.scoreboardSplitScoreBoard.value
+        get() = Config.values.scoreboardSplitScoreBoard
 
     private val spaceBetweenSplit = 6
 

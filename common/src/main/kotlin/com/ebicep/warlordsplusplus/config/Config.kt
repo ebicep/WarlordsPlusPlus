@@ -1,19 +1,9 @@
-@file:UseSerializers(
-    MutableBooleanSerializer::class,
-    MutableIntSerializer::class
-)
-
 package com.ebicep.warlordsplusplus.config
 
 import com.ebicep.warlordsplusplus.MOD_ID
 import com.ebicep.warlordsplusplus.WarlordsPlusPlus
-import com.ebicep.warlordsplusplus.config.mutable.MutableBoolean
-import com.ebicep.warlordsplusplus.config.mutable.MutableBooleanSerializer
-import com.ebicep.warlordsplusplus.config.mutable.MutableInt
-import com.ebicep.warlordsplusplus.config.mutable.MutableIntSerializer
 import com.ebicep.warlordsplusplus.features.hud.elements.*
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 import kotlinx.serialization.json.Json
 import java.io.File
 
@@ -60,24 +50,24 @@ object Config {
 @Serializable
 data class ConfigVariables(
     // general
-    var enabled: MutableBoolean = MutableBoolean(),
+    var enabled: Boolean = true,
     // hud rendering
     var hudElements: HudElementVariables = HudElementVariables(),
     // world rendering
-    var renderPlayerInfo: MutableBoolean = MutableBoolean(),
+    var renderPlayerInfo: Boolean = true,
     // scoreboard
-    var scoreboardEnabled: MutableBoolean = MutableBoolean(),
-    var scoreboardScaleCTFTDM: MutableInt = MutableInt(),
-    var scoreboardScaleDOM: MutableInt = MutableInt(),
-    var scoreboardShowTopHeader: MutableBoolean = MutableBoolean(),
-    var scoreboardShowOutline: MutableBoolean = MutableBoolean(),
-    var scoreboardShowDiedToYouStoleKill: MutableBoolean = MutableBoolean(false),
-    var scoreboardShowDoneAndReceived: MutableBoolean = MutableBoolean(),
-    var scoreboardSplitScoreBoard: MutableBoolean = MutableBoolean(),
+    var scoreboardEnabled: Boolean = true,
+    var scoreboardScaleCTFTDM: Int = 100,
+    var scoreboardScaleDOM: Int = 100,
+    var scoreboardShowTopHeader: Boolean = true,
+    var scoreboardShowOutline: Boolean = true,
+    var scoreboardShowDiedToYouStoleKill: Boolean = false,
+    var scoreboardShowDoneAndReceived: Boolean = true,
+    var scoreboardSplitScoreBoard: Boolean = true,
     // chat
-    var printAbilityStatsAfterGame: MutableBoolean = MutableBoolean(),
-    var printGeneralStatsAfterGame: MutableBoolean = MutableBoolean(),
-    var printScoreboardStatsAfterGame: MutableBoolean = MutableBoolean(false),
+    var printAbilityStatsAfterGame: Boolean = true,
+    var printGeneralStatsAfterGame: Boolean = true,
+    var printScoreboardStatsAfterGame: Boolean = false,
 )
 
 @Serializable

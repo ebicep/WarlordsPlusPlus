@@ -19,7 +19,6 @@ object RenderVignette : Feature {
                     renderVignette(guiGraphics, 0, 0, 255)
                 }
             }
-
         }
     }
 

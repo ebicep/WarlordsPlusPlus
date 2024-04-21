@@ -36,7 +36,7 @@ object CooldownRenderer : Feature {
     ) : RenderHelperPlayer(poseStack, bufferSource, entity) {
 
         override fun shouldRender(): Boolean {
-            return Config.values.renderPlayerInfo.value &&
+            return Config.values.renderPlayerInfo &&
                     GameStateManager.inWarlords2 &&
                     GameStateManager.inGame &&
                     entity != Minecraft.getInstance().player &&

@@ -19,7 +19,7 @@ enum class GameModes {
         }
 
         override fun getScale(): Double {
-            return Config.values.scoreboardScaleCTFTDM.value / 100.0
+            return Config.values.scoreboardScaleCTFTDM / 100.0
         }
     },
     TDM {
@@ -36,7 +36,7 @@ enum class GameModes {
         }
 
         override fun getScale(): Double {
-            return Config.values.scoreboardScaleCTFTDM.value / 100.0
+            return Config.values.scoreboardScaleCTFTDM / 100.0
         }
     },
     DOM {
@@ -53,7 +53,7 @@ enum class GameModes {
         }
 
         override fun getScale(): Double {
-            return Config.values.scoreboardScaleDOM.value / 100.0
+            return Config.values.scoreboardScaleDOM / 100.0
         }
     },
 

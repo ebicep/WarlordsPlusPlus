@@ -28,6 +28,6 @@ object WarlordsPlusPlus {
     }
 
     fun isEnabled(): Boolean {
-        return Config.values.enabled.value
+        return Config.values.enabled
     }
 }
