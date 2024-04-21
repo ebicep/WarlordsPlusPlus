@@ -17,7 +17,7 @@ public class MixinPlayerTabOverlay {
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void render(GuiGraphics guiGraphics, int i, Scoreboard scoreboard, @Nullable Objective objective, CallbackInfo callbackInfo) {
-        if (EventBus.INSTANCE.post(TabListRenderEvent.class, new TabListRenderEvent(guiGraphics, i, scoreboard, objective, false)).getReturnFunction()) {
+        if (EventBus.INSTANCE.post(TabListRenderEvent.class, new TabListRenderEvent(guiGraphics, i, scoreboard, objective, false)).getCancel()) {
             callbackInfo.cancel();
         }
     }

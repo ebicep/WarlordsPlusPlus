@@ -40,7 +40,7 @@ object WarlordsPlusPlusScoreBoard : Feature {
         EventBus.register<TabListRenderEvent> {
             val guiGraphics = it.guiGraphics
             if (Renderer(guiGraphics).render()) {
-                it.returnFunction = true
+                it.cancel = true
             }
         }
     }

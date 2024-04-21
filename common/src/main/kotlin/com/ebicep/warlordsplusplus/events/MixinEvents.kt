@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.world.entity.PlayerRideableJumping
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.scores.Objective
 import net.minecraft.world.scores.Scoreboard
@@ -16,7 +17,7 @@ data class TabListRenderEvent(
     val i: Int,
     val scoreboard: Scoreboard,
     val objective: Objective?,
-    var returnFunction: Boolean = false
+    var cancel: Boolean = false
 )
 
 data class PlayerRenderEvent(
@@ -34,4 +35,11 @@ data class LevelRenderEvent(
     val gameRenderer: GameRenderer,
     val lightTexture: LightTexture,
     val matrix4f: Matrix4f
+)
+
+data class RenderJumpMeterEvent(
+    val playerRideableJumping: PlayerRideableJumping,
+    val guiGraphics: GuiGraphics,
+    val i: Int,
+    var cancel: Boolean = false
 )

@@ -16,6 +16,9 @@ object FeatureManager {
             add(WorldRenderManager)
             add(PrintStatsAfterGame)
             add(WarlordsPlusPlusScoreBoard)
+            add(ShowEnergyOnHorse)
+
+
             add(WarlordsPvEPacketHandler)
         }
     }
